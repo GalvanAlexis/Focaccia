@@ -6,7 +6,9 @@
 
 <style>
     body {
-        background-color: #000 !important;
+        background-color: #FDFDFC;
+        color: #1b1b18;
+        font-family: var(--font-sans);
     }
 
     .login-container {

@@ -4,13 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>La Bartola - Delivery</title>
+  <title>Focaccia - Delivery</title>
 
   <!-- Recursos locales vía Vite -->
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 
   <!-- Estilos externos -->
   <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Italiana&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -18,13 +19,13 @@
 <header class="fixed-header">
   <!-- Redes Sociales - Solo Iconos -->
   <div class="social-icons">
-    <a href="https://instagram.com/labartolaok" target="_blank" aria-label="Instagram">
+    <a href="https://instagram.com/focacciapizzeria_ch" target="_blank" aria-label="Instagram">
       <i class="bi bi-instagram"></i>
     </a>
-    <a href="https://wa.me/542241517665" target="_blank" aria-label="WhatsApp">
+    <a href="https://wa.me/542241693947" target="_blank" aria-label="WhatsApp">
       <i class="bi bi-whatsapp"></i>
     </a>
-    <a href="https://facebook.com/labartolaok" target="_blank" aria-label="Facebook">
+    <a href="https://www.facebook.com/p/Focaccia-Pizeria-100023398373286/?locale=es_LA" target="_blank" aria-label="Facebook">
       <i class="bi bi-facebook"></i>
     </a>
   </div>
@@ -35,23 +36,25 @@
 
   <!-- Logo Circular y Título -->
   <div class="header-brand">
-    <img src="{{ asset('assets/images/logo.png') }}" alt="La Bartola" class="header-logo" id="adminLogo" data-caja-chica-url="{{ url('admin/caja-chica') }}">
-    <h1>La Bartola</h1>
+    <img src="{{ asset('img/logo.png') }}" alt="Focaccia" class="header-logo" id="adminLogo" data-caja-chica-url="{{ url('admin/caja-chica') }}">
   </div>
 
   <!-- Información del Local -->
   <div class="info-section">
-    <a href="https://www.google.com/maps/search/?api=1&query=Jorge+Newbery+356,+Chascomus,+Argentina" target="_blank" class="info-item info-item-link">
+    <a href="https://www.google.com/maps/search/?api=1&query=Bolivia+55,+Chascomus,+Buenos+Aires" target="_blank" class="info-item info-item-link">
       <i class="bi bi-geo-alt-fill"></i>
-      <span>Jorge Newbery 356, Chascomús</span>
+      <span>Bolivia 55, Chascomús</span>
     </a>
     <div class="info-item">
       <i class="bi bi-clock-fill"></i>
-      <span>19:30 - 23:00 hs</span>
+      <span class="hours-text">
+        <span class="hours-part">Mar a Jue: 20-23 |</span>
+        <span class="hours-part">Vie a Dom: 20-23:30 hs</span>
+      </span>
     </div>
     <div class="info-item">
       <i class="bi bi-bicycle"></i>
-      <span>19:30 - 23:00 hs (Delivery)</span>
+      <span>Envíos a Domicilio</span>
     </div>
     <div class="info-item">
       <i class="bi bi-credit-card-fill"></i>
@@ -60,7 +63,10 @@
   </div>
 
   <!-- Frase Motivacional -->
-  <p class="header-tagline">"Todos los mejores platos que te puedas imaginar, adentro de una empanada"</p>
+  <div class="header-tagline-container" style="text-align: center; margin-top: 20px;">
+    <h1 class="italian-title">Focaccia</h1>
+    <p class="header-tagline">¡Deliciosa y con todo el sabor que solo vos sabes!</p>
+  </div>
 </header>
 
 <!-- Buscador -->
