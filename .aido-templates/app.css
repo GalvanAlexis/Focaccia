@@ -1,8 +1,8 @@
 /* AIDO Base CSS - Bootstrap + Tailwind + Custom */
 
 /* Bootstrap core */
-@import 'bootstrap/dist/css/bootstrap.min.css';
-@import 'bootstrap-icons/font/bootstrap-icons.min.css';
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "bootstrap-icons/font/bootstrap-icons.min.css";
 
 /* Tailwind directives (si usas Tailwind) */
 @tailwind base;
@@ -12,14 +12,17 @@
 /* Custom AIDO Variables */
 :root {
     /* Paleta AIDO */
-    --color-negro-profundo: #050505;
-    --color-rojo-neon: #FF0000;
-    --color-rojo-electrico: #FF1A1A;
-    --color-dorado-metalico: #D4AF37;
-    
+    /* Paleta Focaccia */
+    --color-rojo-claro: #d92534;
+    --color-naranja-dorado: #f2b05e;
+    --color-rojo-oscuro: #590902;
+    --color-rojo-acento: #d92525;
+    --color-fondo-logo: #f2f2f2;
+
     /* Fuentes */
-    --font-primary: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    
+    --font-primary: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+
     /* Espaciados AIDO */
     --spacing-xs: 0.5rem;
     --spacing-sm: 1rem;
@@ -37,15 +40,15 @@
 
 body {
     font-family: var(--font-primary);
-    background-color: var(--color-negro-profundo);
-    color: #ffffff;
+    background-color: var(--color-fondo-logo);
+    color: var(--color-rojo-oscuro);
     line-height: 1.6;
     overflow-x: hidden;
 }
 
 /* AIDO Utility Classes */
 .aido-btn-primary {
-    background: var(--color-rojo-neon);
+    background: var(--color-rojo-claro);
     color: white;
     padding: 0.75rem 1.5rem;
     border: none;
@@ -56,16 +59,16 @@ body {
 }
 
 .aido-btn-primary:hover {
-    background: var(--color-rojo-electrico);
+    background: var(--color-rojo-acento);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
+    box-shadow: 0 4px 12px rgba(217, 37, 52, 0.3);
 }
 
 .aido-btn-secondary {
     background: transparent;
-    color: var(--color-dorado-metalico);
+    color: var(--color-rojo-oscuro);
     padding: 0.75rem 1.5rem;
-    border: 2px solid var(--color-dorado-metalico);
+    border: 2px solid var(--color-rojo-oscuro);
     border-radius: 0.5rem;
     font-weight: 600;
     cursor: pointer;
@@ -73,8 +76,8 @@ body {
 }
 
 .aido-btn-secondary:hover {
-    background: var(--color-dorado-metalico);
-    color: var(--color-negro-profundo);
+    background: var(--color-rojo-oscuro);
+    color: white;
     transform: translateY(-2px);
 }
 
