@@ -220,34 +220,7 @@
             font-family: inherit;
         }
 
-        .login-footer {
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--border-primary);
-            text-align: center;
-            background: var(--bg-secondary);
-            border-radius: 0 0 16px 16px;
-        }
 
-        .login-footer a {
-            color: var(--accent-primary);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.2s ease;
-            font-family: inherit;
-        }
-
-        .login-footer a:hover {
-            color: var(--accent-hover);
-            text-decoration: underline;
-            transform: translateY(-1px);
-        }
-
-        .login-footer p {
-            color: var(--text-secondary);
-            font-family: inherit;
-            margin-bottom: 0;
-        }
 
         .alert {
             border-radius: 10px;
@@ -357,11 +330,7 @@
             margin-bottom: 1rem;
         }
 
-        /* Better button styling */
-        .d-grid {
-            display: grid;
-            gap: 1rem;
-        }
+
 
         /* Icon improvements */
         .btn-login svg {
@@ -386,7 +355,6 @@
                     </svg>
                     <h2>Focaccia</h2>
                 </div>
-                <p>Iniciar sesión en tu cuenta</p>
             </div>
 
             <div class="login-body">
@@ -438,8 +406,8 @@
                         </label>
                     </div>
 
-                    <div class="d-grid mt-4">
-                        <button type="submit" class="btn btn-login btn-lg">
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-login btn-lg w-full">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M15 3H9C7.89543 3 7 3.89543 7 5V19C7 20.1046 7.89543 21 9 21H15C16.1046 21 17 20.1046 17 19V5C17 3.89543 16.1046 3 15 3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M10 7H14M10 11H14M10 15H14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -448,18 +416,7 @@
                         </button>
                     </div>
 
-                    @if(Route::has('register'))
-                        <div class="login-footer">
-                            <p class="mb-2">¿No tienes cuenta?</p>
-                            <div class="brand-element">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                                <a href="{{ route('register') }}">Crear cuenta</a>
-                            </div>
-                        </div>
-                    @endif
+
 
                 </form>
             </div>
