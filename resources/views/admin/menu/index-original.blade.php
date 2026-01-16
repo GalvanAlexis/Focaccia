@@ -59,6 +59,7 @@
     padding: 8px 20px;
     border-radius: 8px;
     font-weight: 500;
+    margin-left: 10px;
   }
 
   .admin-btn-secondary:hover {
@@ -68,10 +69,9 @@
 
   .filter-tabs {
     display: flex;
-    gap: 8px;
+    gap: 10px;
     margin-bottom: 1.5rem;
     flex-wrap: wrap;
-    align-items: center;
   }
 
   .filter-tab {
@@ -83,15 +83,6 @@
     cursor: pointer;
     transition: all 0.2s;
     font-weight: 500;
-    white-space: nowrap;
-    font-size: 0.9rem;
-  }
-
-  @media (max-width: 576px) {
-    .filter-tab {
-      font-size: 0.85rem;
-      padding: 6px 12px;
-    }
   }
 
   .filter-tab.active {
@@ -112,16 +103,16 @@
 <section class="admin-menu-section">
   <div class="container">
     <div class="mb-4">
-      <div class="d-flex justify-content-between align-items-start align-items-md-center flex-wrap gap-3">
-        <div>
+      <div class="d-flex justify-content-between align-items-center flex-wrap">
+        <div class="mb-3 mb-md-0">
           <h1 class="h3 mb-1" style="color: #D4B68A; font-weight: 700;">Gestión del Menú</h1>
           <p class="text-light mb-0">Administra los platos y categorías de tu restaurante</p>
         </div>
-        <div class="d-flex flex-column flex-sm-row gap-2">
-          <a href="{{ url('admin/categorias') }}" class="admin-btn-secondary text-center">
+        <div>
+          <a href="{{ url('admin/categorias') }}" class="admin-btn-secondary">
             <i class="bi bi-tags"></i> Gestionar Categorías
           </a>
-          <a href="{{ url('admin/menu/crear') }}" class="admin-btn-primary text-center">
+          <a href="{{ url('admin/menu/crear') }}" class="admin-btn-primary">
             <i class="bi bi-plus-circle"></i> Agregar Plato
           </a>
         </div>
@@ -129,74 +120,74 @@
     </div>
 
     @if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      <i class="bi bi-check-circle me-2"></i>{{ session('success') }}
-      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle me-2"></i>{{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
     @endif
     @if(session('error'))
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-      <i class="bi bi-exclamation-triangle me-2"></i>{{ session('error') }}
-      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-triangle me-2"></i>{{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
     @endif
 
     <!-- Filtros por categoría -->
     <div class="filter-tabs">
       <div class="filter-tab active" data-category="todas">Todas</div>
       @if(!empty($categorias))
-      @foreach($categorias as $cat)
-      <div class="filter-tab" data-category="{{ $cat['nombre'] }}">{{ $cat['nombre'] }}</div>
-      @endforeach
+        @foreach($categorias as $cat)
+          <div class="filter-tab" data-category="{{ $cat['nombre'] }}">{{ $cat['nombre'] }}</div>
+        @endforeach
       @endif
     </div>
 
     <div class="row g-4">
       @if(empty($platos))
-      <div class="col-12">
-        <div class="alert alert-info text-center">No hay platos registrados.</div>
-      </div>
+        <div class="col-12">
+          <div class="alert alert-info text-center">No hay platos registrados.</div>
+        </div>
       @else
-      @foreach($platos as $plato)
-      <div class="col-md-6 col-lg-4 plato-item" data-category="{{ $plato['categoria'] }}">
-        <div class="admin-menu-card">
-          @if(!empty($plato['imagen']))
-          <img src="{{ asset('assets/images/platos/' . $plato['imagen']) }}" class="card-img-top" alt="{{ $plato['nombre'] }}">
-          @else
-          <div style="height: 180px; background: #2a2a2a; display: flex; align-items: center; justify-content: center;">
-            <i class="bi bi-image" style="font-size: 3rem; color: #D4B68A;"></i>
-          </div>
-          @endif
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-start mb-2">
-              <h5 class="card-title mb-0" style="color: #D4B68A; font-weight: 600;">{{ $plato['nombre'] }}</h5>
-              <span class="badge bg-{{ $plato['disponible'] ? 'success' : 'secondary' }}">
-                {{ $plato['disponible'] ? 'Disponible' : 'No disponible' }}
-              </span>
-            </div>
+        @foreach($platos as $plato)
+          <div class="col-md-6 col-lg-4 plato-item" data-category="{{ $plato['categoria'] }}">
+            <div class="admin-menu-card">
+              @if(!empty($plato['imagen']))
+                <img src="{{ asset('assets/images/platos/' . $plato['imagen']) }}" class="card-img-top" alt="{{ $plato['nombre'] }}">
+              @else
+                <div style="height: 180px; background: #2a2a2a; display: flex; align-items: center; justify-content: center;">
+                  <i class="bi bi-image" style="font-size: 3rem; color: #D4B68A;"></i>
+                </div>
+              @endif
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                  <h5 class="card-title mb-0" style="color: #D4B68A; font-weight: 600;">{{ $plato['nombre'] }}</h5>
+                  <span class="badge bg-{{ $plato['disponible'] ? 'success' : 'secondary' }}">
+                    {{ $plato['disponible'] ? 'Disponible' : 'No disponible' }}
+                  </span>
+                </div>
 
-            <span class="admin-category-badge mb-2 d-inline-block">{{ $plato['categoria'] }}</span>
-            <p class="card-text small text-light mb-3">{{ $plato['descripcion'] }}</p>
+                <span class="admin-category-badge mb-2 d-inline-block">{{ $plato['categoria'] }}</span>
+                <p class="card-text small text-light mb-3">{{ $plato['descripcion'] }}</p>
 
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <div><strong style="color: #D4B68A; font-size: 1.2rem;">${{ number_format($plato['precio'], 0, ',', '.') }}</strong></div>
-              <div class="small text-light">
-                Stock: <strong>{{ $plato['stock_ilimitado'] ? '∞' : $plato['stock'] ?? 0 }}</strong>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <div><strong style="color: #D4B68A; font-size: 1.2rem;">${{ number_format($plato['precio'], 0, ',', '.') }}</strong></div>
+                  <div class="small text-light">
+                    Stock: <strong>{{ $plato['stock_ilimitado'] ? '∞' : $plato['stock'] ?? 0 }}</strong>
+                  </div>
+                </div>
+
+                <div class="d-flex gap-2">
+                  <a href="{{ url('admin/menu/editar/' . $plato['id']) }}" class="btn btn-sm btn-outline-warning flex-fill">
+                    <i class="bi bi-pencil"></i> Editar
+                  </a>
+                  <a href="{{ url('admin/menu/eliminar/' . $plato['id']) }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Eliminar este plato?')">
+                    <i class="bi bi-trash"></i> Eliminar
+                  </a>
+                </div>
               </div>
             </div>
-
-            <div class="d-flex gap-2">
-              <a href="{{ url('admin/menu/editar/' . $plato['id']) }}" class="btn btn-sm btn-outline-warning flex-fill">
-                <i class="bi bi-pencil"></i> Editar
-              </a>
-              <a href="{{ url('admin/menu/eliminar/' . $plato['id']) }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Eliminar este plato?')">
-                <i class="bi bi-trash"></i> Eliminar
-              </a>
-            </div>
           </div>
-        </div>
-      </div>
-      @endforeach
+        @endforeach
       @endif
     </div>
   </div>

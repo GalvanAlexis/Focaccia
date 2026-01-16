@@ -32,9 +32,9 @@ class CajaChica extends Model
 
     public static function getMovimientosPorFecha($fecha)
     {
-        return self::where('fecha', $fecha)
-                   ->orderBy('hora')
-                   ->get();
+        return self::whereDate('fecha', $fecha)
+            ->orderBy('hora')
+            ->get();
     }
 
     public static function getSaldoDia($fecha)

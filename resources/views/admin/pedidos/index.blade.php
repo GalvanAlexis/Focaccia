@@ -2,406 +2,570 @@
 
 @section('content')
 <style>
-/* Estilos móvil-first */
-.pedido-card {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-    border: 2px solid #D4B68A;
-    border-radius: 15px;
-    margin-bottom: 15px;
-    padding: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
+    /* Estilos móvil-first */
+    .pedido-card {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+        border: 2px solid #D4B68A;
+        border-radius: 15px;
+        margin-bottom: 15px;
+        padding: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
 
-.pedido-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #D4B68A;
-}
+    .pedido-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #D4B68A;
+    }
 
-.pedido-cliente {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #D4B68A;
-}
+    .pedido-cliente {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #D4B68A;
+    }
 
-.pedido-fecha {
-    font-size: 0.85rem;
-    color: #ccc;
-}
+    .pedido-fecha {
+        font-size: 0.85rem;
+        color: #ccc;
+    }
 
-.pedido-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #333;
-}
+    .pedido-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #333;
+    }
 
-.item-nombre {
-    flex: 1;
-    font-weight: 600;
-    color: #fff;
-}
+    .item-nombre {
+        flex: 1;
+        font-weight: 600;
+        color: #fff;
+    }
 
-.item-cantidad {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin: 0 10px;
-}
+    .item-cantidad {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0 10px;
+    }
 
-.qty-btn-pedido {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: #D4B68A;
-    color: #000;
-    border: none;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 1.1rem;
-}
+    .qty-btn-pedido {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: #D4B68A;
+        color: #000;
+        border: none;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 1.1rem;
+    }
 
-.qty-btn-pedido:active {
-    transform: scale(0.9);
-}
+    .qty-btn-pedido:active {
+        transform: scale(0.9);
+    }
 
-.item-subtotal {
-    font-weight: 700;
-    color: #4CAF50;
-    min-width: 80px;
-    text-align: right;
-}
+    .item-subtotal {
+        font-weight: 700;
+        color: #4CAF50;
+        min-width: 80px;
+        text-align: right;
+    }
 
-.pedido-footer {
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 2px solid #D4B68A;
-}
+    .pedido-footer {
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 2px solid #D4B68A;
+    }
 
-.pedido-total {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-bottom: 15px;
-}
+    .pedido-total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
 
-.pedido-total-label {
-    color: #D4B68A;
-}
+    .pedido-total-label {
+        color: #D4B68A;
+    }
 
-.pedido-total-value {
-    color: #4CAF50;
-}
+    .pedido-total-value {
+        color: #4CAF50;
+    }
 
-.pedido-info-row {
-    display: flex;
-    align-items: center;
-    margin: 8px 0;
-    font-size: 0.9rem;
-}
+    .pedido-info-row {
+        display: flex;
+        align-items: center;
+        margin: 8px 0;
+        font-size: 0.9rem;
+    }
 
-.pedido-info-row i {
-    color: #D4B68A;
-    margin-right: 8px;
-    width: 20px;
-}
+    .pedido-info-row i {
+        color: #D4B68A;
+        margin-right: 8px;
+        width: 20px;
+    }
 
-.pedido-actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-top: 12px;
-}
+    .pedido-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-top: 12px;
+    }
 
-.btn-pedido {
-    padding: 10px;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    cursor: pointer;
-    transition: all 0.2s;
-}
+    .btn-pedido {
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
 
-.btn-pedido:active {
-    transform: scale(0.95);
-}
+    .btn-pedido:active {
+        transform: scale(0.95);
+    }
 
-.btn-estado {
-    background: linear-gradient(135deg, #2196F3, #1976D2);
-    color: #fff;
-}
+    .btn-estado {
+        background: linear-gradient(135deg, #2196F3, #1976D2);
+        color: #fff;
+    }
 
-.btn-imprimir {
-    background: linear-gradient(135deg, #4CAF50, #388E3C);
-    color: #fff;
-}
+    .btn-imprimir {
+        background: linear-gradient(135deg, #4CAF50, #388E3C);
+        color: #fff;
+    }
 
-.btn-editar {
-    background: linear-gradient(135deg, #FF9800, #F57C00);
-    color: #fff;
-}
+    .btn-editar {
+        background: linear-gradient(135deg, #FF9800, #F57C00);
+        color: #fff;
+    }
 
-.btn-eliminar {
-    background: linear-gradient(135deg, #F44336, #D32F2F);
-    color: #fff;
-}
+    .btn-eliminar {
+        background: linear-gradient(135deg, #F44336, #D32F2F);
+        color: #fff;
+    }
 
-.badge-estado {
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-}
+    .badge-estado {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
 
-.badge-pendiente { background: #FFC107; color: #000; }
-.badge-en_proceso { background: #2196F3; color: #fff; }
-.badge-completado { background: #4CAF50; color: #fff; }
-.badge-cancelado { background: #F44336; color: #fff; }
+    .badge-pendiente {
+        background: #FFC107;
+        color: #000;
+    }
 
-.filtros-container {
-    display: flex;
-    overflow-x: auto;
-    gap: 8px;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-}
+    .badge-en_proceso {
+        background: #2196F3;
+        color: #fff;
+    }
 
-.filtros-container::-webkit-scrollbar {
-    height: 4px;
-}
+    .badge-completado {
+        background: #4CAF50;
+        color: #fff;
+    }
 
-.filtros-container::-webkit-scrollbar-thumb {
-    background: #D4B68A;
-    border-radius: 2px;
-}
+    .badge-cancelado {
+        background: #F44336;
+        color: #fff;
+    }
 
-.filtro-btn {
-    min-width: fit-content;
-    padding: 8px 12px;
-    border: 2px solid #D4B68A;
-    background: transparent;
-    color: #D4B68A;
-    border-radius: 20px;
-    font-weight: 600;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.2s;
-    font-size: 0.85rem;
-    flex-shrink: 0;
-}
+    .filtros-container {
+        display: flex;
+        overflow-x: auto;
+        gap: 8px;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
 
-.filtro-btn.active {
-    background: #D4B68A;
-    color: #000;
-}
+    .filtros-container::-webkit-scrollbar {
+        height: 4px;
+    }
 
-.filtro-btn:active {
-    transform: scale(0.95);
-}
+    .filtros-container::-webkit-scrollbar-thumb {
+        background: #D4B68A;
+        border-radius: 2px;
+    }
 
-/* Modal de edición */
-.modal-editar {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.8);
-    z-index: 9999;
-    overflow-y: auto;
-    padding: 20px;
-}
+    .filtro-btn {
+        min-width: fit-content;
+        padding: 8px 12px;
+        border: 2px solid #D4B68A;
+        background: transparent;
+        color: #D4B68A;
+        border-radius: 20px;
+        font-weight: 600;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all 0.2s;
+        font-size: 0.85rem;
+        flex-shrink: 0;
+    }
 
-.modal-editar.active {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-}
+    .filtro-btn.active {
+        background: #D4B68A;
+        color: #000;
+    }
 
-.modal-content-editar {
-    background: #1a1a1a;
-    border: 2px solid #D4B68A;
-    border-radius: 15px;
-    padding: 20px;
-    max-width: 500px;
-    width: 100%;
-    margin: 20px auto;
-}
+    .filtro-btn:active {
+        transform: scale(0.95);
+    }
 
-.modal-header-editar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 2px solid #D4B68A;
-}
+    /* Modal de edición */
+    .modal-editar {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 9999;
+        overflow-y: auto;
+        padding: 20px;
+    }
 
-.modal-title-editar {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #D4B68A;
-}
+    .modal-editar.active {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+    }
 
-.btn-close-modal {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    background: #F44336;
-    color: #fff;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+    .modal-content-editar {
+        background: #1a1a1a;
+        border: 2px solid #D4B68A;
+        border-radius: 15px;
+        padding: 20px;
+        max-width: 500px;
+        width: 100%;
+        margin: 20px auto;
+    }
 
-.form-group-editar {
-    margin-bottom: 15px;
-}
+    .modal-header-editar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #D4B68A;
+    }
 
-.form-label-editar {
-    display: block;
-    color: #D4B68A;
-    font-weight: 600;
-    margin-bottom: 8px;
-}
+    .modal-title-editar {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #D4B68A;
+    }
 
-.form-control-editar {
-    width: 100%;
-    padding: 10px;
-    background: #2a2a2a;
-    border: 1px solid #D4B68A;
-    border-radius: 8px;
-    color: #fff;
-    font-size: 1rem;
-}
+    .btn-close-modal {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background: #F44336;
+        color: #fff;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-.form-control-editar:focus {
-    outline: none;
-    border-color: #FFD700;
-}
+    .form-group-editar {
+        margin-bottom: 15px;
+    }
 
-.btn-guardar-editar {
-    width: 100%;
-    padding: 12px;
-    background: linear-gradient(135deg, #4CAF50, #388E3C);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 1.1rem;
-    cursor: pointer;
-    margin-top: 10px;
-}
+    .form-label-editar {
+        display: block;
+        color: #D4B68A;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
 
-.btn-guardar-editar:active {
-    transform: scale(0.98);
-}
+    .form-control-editar {
+        width: 100%;
+        padding: 10px;
+        background: #2a2a2a;
+        border: 1px solid #D4B68A;
+        border-radius: 8px;
+        color: #fff;
+        font-size: 1rem;
+    }
 
-@media (min-width: 768px) {
+    .form-control-editar:focus {
+        outline: none;
+        border-color: #FFD700;
+    }
+
+    .btn-guardar-editar {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(135deg, #4CAF50, #388E3C);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    .btn-guardar-editar:active {
+        transform: scale(0.98);
+    }
+
+    @media (min-width: 768px) {
+        .pedido-actions {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
     .pedido-actions {
         grid-template-columns: repeat(4, 1fr);
     }
-}
-    .pedido-actions {
-        grid-template-columns: repeat(4, 1fr);
     }
-}
 
-.search-input {
-    background: #2a2a2a !important;
-    border: 1px solid #444 !important;
-    color: #fff !important;
-}
+    .search-input {
+        background: #2a2a2a !important;
+        border: 1px solid #444 !important;
+        color: #fff !important;
+    }
 
-.search-input::placeholder {
-    color: #bbb !important;
-    opacity: 1;
-}
+    .search-input::placeholder {
+        color: #bbb !important;
+        opacity: 1;
+    }
+
+    /* === MEJORAS MOBILE (360px) === */
+    @media (max-width: 576px) {
+
+        /* Buscador más grande y responsive */
+        .search-input {
+            font-size: 16px !important;
+            /* Evita zoom en iOS */
+            padding: 12px !important;
+        }
+
+        .btn.btn-warning,
+        .btn.btn-outline-light {
+            min-width: 44px;
+            min-height: 44px;
+            padding: 12px !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Badge de fecha más grande y destacado en móvil */
+        .badge.bg-secondary,
+        .badge.bg-info {
+            font-size: 0.9rem;
+            padding: 8px 14px;
+            display: inline-block;
+            margin-top: 10px;
+            word-break: break-word;
+            font-weight: 600;
+        }
+
+        /* Título más compacto */
+        h2 {
+            font-size: 1.5rem !important;
+        }
+
+        /* Botones de acción más grandes (touch-friendly) */
+        .qty-btn-pedido {
+            width: 36px !important;
+            height: 36px !important;
+            font-size: 1.2rem !important;
+        }
+
+        /* Items con mejor espaciado */
+        .pedido-item {
+            padding: 12px 0;
+            gap: 8px;
+        }
+
+        .item-nombre {
+            font-size: 0.95rem;
+            line-height: 1.3;
+        }
+
+        .item-subtotal {
+            font-size: 0.95rem;
+            min-width: 70px;
+        }
+
+        /* Botones de acción en 2 columnas en móvil */
+        .pedido-actions {
+            grid-template-columns: 1fr 1fr !important;
+            gap: 10px;
+        }
+
+        .btn-pedido {
+            padding: 12px 8px;
+            font-size: 0.85rem;
+            min-height: 44px;
+            /* Touch target mínimo */
+        }
+
+        .btn-pedido i {
+            font-size: 1.1rem;
+        }
+
+        /* Info rows más compactas */
+        .pedido-info-row {
+            font-size: 0.85rem;
+            margin: 6px 0;
+            word-break: break-word;
+        }
+
+        /* Total más destacado */
+        .pedido-total {
+            font-size: 1.1rem;
+            padding: 8px 0;
+        }
+
+        /* Filtros con scroll suave */
+        .filtros-container {
+            gap: 8px;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .filtro-btn {
+            font-size: 0.9rem;
+            padding: 10px 16px;
+            min-height: 42px;
+            font-weight: 600;
+        }
+
+        /* Card con padding ajustado */
+        .pedido-card {
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        /* Header del pedido */
+        .pedido-cliente {
+            font-size: 1rem;
+        }
+
+        .pedido-fecha {
+            font-size: 0.75rem;
+        }
+
+        .badge-estado {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+        }
+
+        /* Container principal */
+        .container-fluid {
+            padding-left: 12px !important;
+            padding-right: 12px !important;
+        }
+
+        /* Ajustar row del buscador */
+        .row.mb-4 {
+            margin-bottom: 1rem !important;
+        }
+
+        .row.mb-4 .col-md-6:first-child {
+            margin-bottom: 0;
+        }
+
+        .row.mb-4 .col-md-6:last-child {
+            text-align: center !important;
+            margin-top: 10px;
+        }
+    }
 </style>
 
 <section class="py-4" style="background-color: #000; min-height: 100vh;">
-<div class="container-fluid" style="max-width: 1200px;">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 style="color: #D4B68A;">
-            <i class="bi bi-receipt"></i> Pedidos
-        </h2>
-    </div>
+    <div class="container-fluid" style="max-width: 1200px;">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 style="color: #D4B68A;">
+                <i class="bi bi-receipt"></i> Pedidos
+            </h2>
+        </div>
 
-    @if(session('success'))
+        @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show">
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
-    @endif
+        @endif
 
-    <!-- Filtros -->
-    <div class="filtros-container">
-        <button class="filtro-btn active" data-filter="todos">
-            Todos ({{ count($pedidos) }})
-        </button>
-        <button class="filtro-btn" data-filter="pendiente">
-            🟡 Pendientes
-        </button>
+        <!-- Filtros -->
+        <div class="mb-4">
+            <select class="form-select" id="filtroEstado" style="background: #2a2a2a; border: 2px solid #D4B68A; color: #D4B68A; font-weight: 600; padding: 12px; border-radius: 10px; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                <option value="todos" selected>📋 Todos los pedidos ({{ count($pedidos) }})</option>
+                <option value="pendiente">🟡 Pendientes</option>
+                <option value="completado">🟢 Completados</option>
+                <option value="cancelado">🔴 Cancelados</option>
+            </select>
+        </div>
 
-        <button class="filtro-btn" data-filter="completado">
-            🟢 Completados
-        </button>
-        <button class="filtro-btn" data-filter="cancelado">
-            🔴 Cancelados
-        </button>
-    </div>
+        <!-- Buscador -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <form action="{{ url('admin/pedidos') }}" method="GET" class="d-flex gap-2 flex-wrap" id="filtroForm">
+                    <div class="d-flex gap-2 flex-grow-1">
+                        <input type="text" name="busqueda" class="form-control search-input" placeholder="Buscar por cliente, plato o ID..." value="{{ request('busqueda') }}">
+                        <button type="submit" class="btn btn-warning">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
 
-    <!-- Buscador -->
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <form action="{{ url('admin/pedidos') }}" method="GET" class="d-flex gap-2">
-                <input type="text" name="busqueda" class="form-control search-input" placeholder="Buscar por cliente, plato o ID..." value="{{ request('busqueda') }}">
-                <button type="submit" class="btn btn-warning">
-                    <i class="bi bi-search"></i>
-                </button>
-                @if(request('busqueda'))
-                    <a href="{{ url('admin/pedidos') }}" class="btn btn-outline-light" title="Limpiar búsqueda">
+                    @if(request('busqueda') || request('fecha'))
+                    <a href="{{ url('admin/pedidos') }}" class="btn btn-outline-light d-flex align-items-center justify-content-center" title="Limpiar filtros" style="min-width: 44px;">
                         <i class="bi bi-x-lg"></i>
                     </a>
-                @endif
-            </form>
+                    @endif
+                </form>
+            </div>
+            <div class="col-md-6 text-end align-self-center mt-3 mt-md-0">
+                <div class="d-flex align-items-center justify-content-end gap-2 flex-wrap">
+                    @if(request('busqueda'))
+                    <span class="badge bg-info text-dark">Resultados de búsqueda: "{{ request('busqueda') }}"</span>
+                    @else
+                    <div class="d-flex align-items-center bg-secondary rounded-pill px-3 py-2 text-white" style="cursor: pointer; border: 1px solid rgba(255,255,255,0.2);" onclick="document.getElementById('fechaInput').showPicker()">
+                        <span style="font-size: 1rem; font-weight: 600;">
+                            📅 {{ $fecha ? 'Pedidos del ' . date('d/m/Y', strtotime($fecha)) : 'Pedidos de Hoy (' . now()->format('d/m/Y') . ')' }}
+                        </span>
+                        <i class="bi bi-calendar3 ms-2" style="font-size: 1.2rem; color: #D4B68A;"></i>
+                        <input type="date" name="fecha" id="fechaInput" form="filtroForm" style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;" value="{{ $fecha ?? now()->toDateString() }}" onchange="this.form.submit()">
+                    </div>
+                    @endif
+                </div>
+            </div>
         </div>
-        <div class="col-md-6 text-end align-self-center">
-            @if(request('busqueda'))
-                <span class="badge bg-info text-dark">Resultados de búsqueda: "{{ request('busqueda') }}"</span>
-            @else
-                <span class="badge bg-secondary">📅 Pedidos de Hoy ({{ now()->format('d/m/Y') }})</span>
-            @endif
-        </div>
-    </div>
 
-    <!-- Lista de Pedidos -->
-    <div id="pedidosContainer">
-        @if(empty($pedidos))
+        <!-- Lista de Pedidos -->
+        <div id="pedidosContainer">
+            @if(empty($pedidos))
             <div class="text-center text-light py-5" style="opacity: 0.7;">
                 <i class="bi bi-inbox" style="font-size: 3rem;"></i>
                 <p class="mt-3">No hay pedidos registrados</p>
             </div>
-        @else
+            @else
             <?php
             // Agrupar pedidos por cliente y fecha
             $pedidosAgrupados = [];
@@ -431,307 +595,312 @@
             ?>
 
             @foreach($pedidosAgrupados as $key => $grupo)
-                <?php
-                $totalPedido = array_sum(array_column($grupo['items'], 'total'));
-                $estadoClass = 'badge-' . $grupo['estado'];
-                $estadoTexto = match($grupo['estado']) {
-                    'pendiente' => '🟡 Pendiente',
-                    'en_proceso' => '🔵 En Proceso',
-                    'completado' => '🟢 Completado',
-                    'cancelado' => '🔴 Cancelado',
-                    default => $grupo['estado']
-                };
-                ?>
-                <div class="pedido-card" data-estado="{{ $grupo['estado'] }}" data-pedido-key="{{ $key }}">
-                    <!-- Header -->
-                    <div class="pedido-header">
-                        <div>
-                            <div class="pedido-cliente">{{ $grupo['cliente'] }}</div>
-                            <div class="pedido-fecha">
-                                {{ date('d/m/Y - H:i', strtotime($grupo['fecha'])) }}
-                            </div>
+            <?php
+            $totalPedido = array_sum(array_column($grupo['items'], 'total'));
+            $estadoClass = 'badge-' . $grupo['estado'];
+            $estadoTexto = match ($grupo['estado']) {
+                'pendiente' => '🟡 Pendiente',
+                'en_proceso' => '🔵 En Proceso',
+                'completado' => '🟢 Completado',
+                'cancelado' => '🔴 Cancelado',
+                default => $grupo['estado']
+            };
+            ?>
+            <div class="pedido-card" data-estado="{{ $grupo['estado'] }}" data-pedido-key="{{ $key }}">
+                <!-- Header -->
+                <div class="pedido-header">
+                    <div>
+                        <div class="pedido-cliente">{{ $grupo['cliente'] }}</div>
+                        <div class="pedido-fecha">
+                            {{ date('d/m/Y - H:i', strtotime($grupo['fecha'])) }}
                         </div>
-                        <span class="badge-estado {{ $estadoClass }}">{{ $estadoTexto }}</span>
+                    </div>
+                    <span class="badge-estado {{ $estadoClass }}">{{ $estadoTexto }}</span>
+                </div>
+
+                <!-- Items -->
+                <div class="pedido-items">
+                    @foreach($grupo['items'] as $item)
+                    <div class="pedido-item" data-item-id="{{ $item['id'] }}" data-plato-id="{{ $item['plato_id'] }}">
+                        <div class="item-nombre">{{ $item['plato_nombre'] }}</div>
+                        <div class="item-cantidad">
+                            <button class="qty-btn-pedido" onclick="cambiarCantidad({{ $item['id'] }}, -1, event)">−</button>
+                            <span class="qty-display" id="qty-{{ $item['id'] }}" data-precio="{{ $item['precio'] }}">{{ $item['cantidad'] }}</span>
+                            <button class="qty-btn-pedido" onclick="cambiarCantidad({{ $item['id'] }}, 1, event)">+</button>
+                        </div>
+                        <div class="item-subtotal" id="subtotal-{{ $item['id'] }}">
+                            ${{ number_format($item['total'], 0, ',', '.') }}
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+
+                <!-- Footer -->
+                <div class="pedido-footer">
+                    <div class="pedido-info-row">
+                        <i class="bi bi-{{ $grupo['tipo_entrega'] === 'delivery' ? 'truck' : 'bag' }}"></i>
+                        <span>{{ ucfirst($grupo['tipo_entrega']) }}</span>
+                    </div>
+                    @if(!empty($grupo['direccion']))
+                    <div class="pedido-info-row">
+                        <i class="bi bi-geo-alt"></i>
+                        <span>{{ $grupo['direccion'] }}</span>
+                    </div>
+                    @endif
+                    <div class="pedido-info-row">
+                        <i class="bi bi-<?= match ($grupo['forma_pago']) {
+                                            'efectivo' => 'cash',
+                                            'qr' => 'qr-code',
+                                            'tarjeta' => 'credit-card',
+                                            default => 'currency-exchange'
+                                        } ?>"></i>
+                        <span>{{ ucfirst($grupo['forma_pago']) }}</span>
                     </div>
 
-                    <!-- Items -->
-                    <div class="pedido-items">
-                        @foreach($grupo['items'] as $item)
-                            <div class="pedido-item" data-item-id="{{ $item['id'] }}" data-plato-id="{{ $item['plato_id'] }}">
-                                <div class="item-nombre">{{ $item['plato_nombre'] }}</div>
-                                <div class="item-cantidad">
-                                    <button class="qty-btn-pedido" onclick="cambiarCantidad({{ $item['id'] }}, -1, event)">−</button>
-                                    <span class="qty-display" id="qty-{{ $item['id'] }}" data-precio="{{ $item['precio'] }}">{{ $item['cantidad'] }}</span>
-                                    <button class="qty-btn-pedido" onclick="cambiarCantidad({{ $item['id'] }}, 1, event)">+</button>
-                                </div>
-                                <div class="item-subtotal" id="subtotal-{{ $item['id'] }}">
-                                    ${{ number_format($item['total'], 0, ',', '.') }}
-                                </div>
-                            </div>
-                        @endforeach
+                    <div class="pedido-total">
+                        <span class="pedido-total-label">TOTAL:</span>
+                        <span class="pedido-total-value" id="total-{{ $key }}">${{ number_format($totalPedido, 0, ',', '.') }}</span>
                     </div>
 
-                    <!-- Footer -->
-                    <div class="pedido-footer">
-                        <div class="pedido-info-row">
-                            <i class="bi bi-{{ $grupo['tipo_entrega'] === 'delivery' ? 'truck' : 'bag' }}"></i>
-                            <span>{{ ucfirst($grupo['tipo_entrega']) }}</span>
-                        </div>
-                        @if(!empty($grupo['direccion']))
-                            <div class="pedido-info-row">
-                                <i class="bi bi-geo-alt"></i>
-                                <span>{{ $grupo['direccion'] }}</span>
-                            </div>
-                        @endif
-                        <div class="pedido-info-row">
-                            <i class="bi bi-<?= match($grupo['forma_pago']) {
-                                'efectivo' => 'cash',
-                                'qr' => 'qr-code',
-                                'tarjeta' => 'credit-card',
-                                default => 'currency-exchange'
-                            } ?>"></i>
-                            <span>{{ ucfirst($grupo['forma_pago']) }}</span>
-                        </div>
-
-                        <div class="pedido-total">
-                            <span class="pedido-total-label">TOTAL:</span>
-                            <span class="pedido-total-value" id="total-{{ $key }}">${{ number_format($totalPedido, 0, ',', '.') }}</span>
-                        </div>
-
-                        <div class="pedido-actions">
-                            <button class="btn-pedido btn-estado" onclick="cambiarEstado('{{ $key }}', '{{ $grupo['primer_id'] }}', event)">
-                                <i class="bi bi-arrow-repeat"></i> Estado
-                            </button>
-                            <button class="btn-pedido btn-imprimir" onclick="imprimir({{ $grupo['primer_id'] }}, event)">
-                                <i class="bi bi-printer"></i> Imprimir
-                            </button>
-                            <button class="btn-pedido btn-editar" onclick="editarPedido('{{ $key }}', {{ $grupo['primer_id'] }}, event)">
-                                <i class="bi bi-pencil"></i> Editar
-                            </button>
-                            <button class="btn-pedido btn-eliminar" onclick="eliminarPedido({{ $grupo['primer_id'] }}, event)">
-                                <i class="bi bi-trash"></i> Eliminar
-                            </button>
-                        </div>
+                    <div class="pedido-actions">
+                        <button class="btn-pedido btn-estado" onclick="cambiarEstado('{{ $key }}', '{{ $grupo['primer_id'] }}', event)">
+                            <i class="bi bi-arrow-repeat"></i> Estado
+                        </button>
+                        <button class="btn-pedido btn-imprimir" onclick="imprimir({{ $grupo['primer_id'] }}, event)">
+                            <i class="bi bi-printer"></i> Imprimir
+                        </button>
+                        <button class="btn-pedido btn-editar" onclick="editarPedido('{{ $key }}', {{ $grupo['primer_id'] }}, event)">
+                            <i class="bi bi-pencil"></i> Editar
+                        </button>
+                        <button class="btn-pedido btn-eliminar" onclick="eliminarPedido({{ $grupo['primer_id'] }}, event)">
+                            <i class="bi bi-trash"></i> Eliminar
+                        </button>
                     </div>
                 </div>
+            </div>
             @endforeach
-        @endif
-    </div>
-</div>
-
-<!-- Modal de edición -->
-<div class="modal-editar" id="modalEditar">
-    <div class="modal-content-editar">
-        <div class="modal-header-editar">
-            <div class="modal-title-editar">Editar Pedido</div>
-            <button class="btn-close-modal" onclick="cerrarModalEditar()">×</button>
-        </div>
-        <div id="modalEditarBody">
-            <!-- Contenido dinámico -->
+            @endif
         </div>
     </div>
-</div>
 
-<!-- Modal de confirmación -->
-<div class="modal-editar" id="modalConfirmar">
-    <div class="modal-content-editar" style="max-width: 400px;">
-        <div class="modal-header-editar">
-            <div class="modal-title-editar" id="modalConfirmarTitulo">Confirmar acción</div>
-            <button class="btn-close-modal" onclick="cerrarModalConfirmar()">×</button>
-        </div>
-        <div style="padding: 20px;">
-            <p id="modalConfirmarMensaje" style="color: #fff; margin-bottom: 20px; font-size: 1rem;"></p>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                <button class="btn-guardar-editar" style="background: #666;" onclick="cerrarModalConfirmar()">
-                    Cancelar
-                </button>
-                <button class="btn-guardar-editar" style="background: linear-gradient(135deg, #F44336, #D32F2F);" id="modalConfirmarBoton">
-                    Confirmar
-                </button>
+    <!-- Modal de edición -->
+    <div class="modal-editar" id="modalEditar">
+        <div class="modal-content-editar">
+            <div class="modal-header-editar">
+                <div class="modal-title-editar">Editar Pedido</div>
+                <button class="btn-close-modal" onclick="cerrarModalEditar()">×</button>
+            </div>
+            <div id="modalEditarBody">
+                <!-- Contenido dinámico -->
             </div>
         </div>
     </div>
-</div>
 
-<script>
-// Variable global para el callback del modal de confirmación
-let modalConfirmarCallback = null;
-const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    <!-- Modal de confirmación -->
+    <div class="modal-editar" id="modalConfirmar">
+        <div class="modal-content-editar" style="max-width: 400px;">
+            <div class="modal-header-editar">
+                <div class="modal-title-editar" id="modalConfirmarTitulo">Confirmar acción</div>
+                <button class="btn-close-modal" onclick="cerrarModalConfirmar()">×</button>
+            </div>
+            <div style="padding: 20px;">
+                <p id="modalConfirmarMensaje" style="color: #fff; margin-bottom: 20px; font-size: 1rem;"></p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <button class="btn-guardar-editar" style="background: #666;" onclick="cerrarModalConfirmar()">
+                        Cancelar
+                    </button>
+                    <button class="btn-guardar-editar" style="background: linear-gradient(135deg, #F44336, #D32F2F);" id="modalConfirmarBoton">
+                        Confirmar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-// Filtrar pedidos
-document.querySelectorAll('.filtro-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-        const filtro = this.dataset.filter;
+    <script>
+        // Variable global para el callback del modal de confirmación
+        let modalConfirmarCallback = null;
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-        document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
+        // Filtrar pedidos con select
+        document.getElementById('filtroEstado').addEventListener('change', function() {
+        const filtro = this.value;
 
         document.querySelectorAll('.pedido-card').forEach(card => {
-            if (filtro === 'todos' || card.dataset.estado === filtro) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    });
-});
-
-// Cambiar cantidad de item
-// Debounce timers para actualización de cantidad
-let updateTimers = {};
-
-function cambiarCantidad(itemId, delta, event) {
-    // Evitar que el evento se propague
-    if (event) {
-        event.stopPropagation();
-        event.preventDefault();
-    }
-
-    const qtyDisplay = document.getElementById(`qty-${itemId}`);
-    const subtotalDisplay = document.getElementById(`subtotal-${itemId}`);
-
-    if (!qtyDisplay) {
-        if (DEBUG_MODE) console.error('No se encontró el elemento qty-' + itemId);
-        mostrarNotificacion('Error: elemento no encontrado', 'error');
-        return;
-    }
-
-    let cantidad = parseInt(qtyDisplay.textContent);
-    cantidad += delta;
-
-    if (cantidad < 1) {
-        mostrarModalConfirmar(
-            '¿Eliminar plato?',
-            '¿Deseas eliminar este plato del pedido?',
-            () => eliminarItem(itemId)
-        );
-        return;
-    }
-
-    // Actualizar visualmente de inmediato
-    qtyDisplay.textContent = cantidad;
-
-    // Calcular y actualizar subtotal visualmente
-    const precioUnitario = parseFloat(qtyDisplay.dataset.precio || 0);
-    const nuevoSubtotal = precioUnitario * cantidad;
-    if (subtotalDisplay) {
-        subtotalDisplay.textContent = `$${nuevoSubtotal.toLocaleString('es-AR')}`;
-    }
-
-    // Actualizar total visualmente
-    actualizarTotal(itemId);
-
-    // Cancelar timer anterior si existe
-    if (updateTimers[itemId]) {
-        clearTimeout(updateTimers[itemId]);
-    }
-
-    // Deshabilitar botones temporalmente para evitar clicks rápidos
-    const btnMenos = event.target.closest('.pedido-item').querySelector('.qty-btn-pedido[onclick*="-1"]');
-    const btnMas = event.target.closest('.pedido-item').querySelector('.qty-btn-pedido[onclick*="1,"]');
-    if (btnMenos) btnMenos.style.opacity = '0.5';
-    if (btnMas) btnMas.style.opacity = '0.5';
-
-    // Programar actualización en servidor con delay de 500ms
-    updateTimers[itemId] = setTimeout(() => {
-        actualizarCantidadEnServidor(itemId, cantidad, qtyDisplay, subtotalDisplay, btnMenos, btnMas);
-    }, 500);
-}
-
-// Función separada para actualizar en el servidor
-function actualizarCantidadEnServidor(itemId, cantidad, qtyDisplay, subtotalDisplay, btnMenos, btnMas) {
-    fetch('{{ url("admin/pedidos/actualizarItem") }}', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'X-CSRF-TOKEN': csrfToken,
-            'Accept': 'application/json'
-        },
-        body: `item_id=${itemId}&cantidad=${cantidad}`
-    })
-    .then(response => response.json())
-    .then(data => {
-        // Rehabilitar botones
-        if (btnMenos) btnMenos.style.opacity = '1';
-        if (btnMas) btnMas.style.opacity = '1';
-
-        if (data.success) {
-            // Confirmar valores del servidor
-            qtyDisplay.textContent = data.cantidad;
-            if (subtotalDisplay) {
-                subtotalDisplay.textContent = `$${Number(data.subtotal).toLocaleString('es-AR')}`;
-            }
-            actualizarTotal(itemId);
-            mostrarNotificacion('Cantidad actualizada', 'success');
+        if (filtro === 'todos' || card.dataset.estado === filtro) {
+            card.style.display = 'block';
         } else {
-            mostrarNotificacion(data.message || 'Error al actualizar', 'error');
-            // Revertir cambios visuales si falla
-            location.reload();
+            card.style.display = 'none';
         }
-    })
-    .catch(error => {
-        // Rehabilitar botones
-        if (btnMenos) btnMenos.style.opacity = '1';
-        if (btnMas) btnMas.style.opacity = '1';
+        });
+        });
+        });
+        });
 
-        console.error('Error:', error);
-        mostrarNotificacion('Error al actualizar cantidad', 'error');
-        // Revertir cambios visuales
-        location.reload();
-    });
-}
+        // Cambiar cantidad de item
+        // Debounce timers para actualización de cantidad
+        let updateTimers = {};
 
-// Actualizar total del pedido
-function actualizarTotal(itemId) {
-    const item = document.querySelector(`[data-item-id="${itemId}"]`);
-    const card = item.closest('.pedido-card');
-    const items = card.querySelectorAll('.pedido-item');
+        function cambiarCantidad(itemId, delta, event) {
+            // Evitar que el evento se propague
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
 
-    let total = 0;
-    items.forEach(i => {
-        const subtotalText = i.querySelector('.item-subtotal').textContent;
-        const subtotal = parseFloat(subtotalText.replace('$', '').replace('.', '').replace(',', '.'));
-        total += subtotal;
-    });
+            const qtyDisplay = document.getElementById(`qty-${itemId}`);
+            const subtotalDisplay = document.getElementById(`subtotal-${itemId}`);
 
-    const totalDisplay = card.querySelector('.pedido-total-value');
-    totalDisplay.textContent = `$${total.toLocaleString('es-AR')}`;
-}
+            if (!qtyDisplay) {
+                if (DEBUG_MODE) console.error('No se encontró el elemento qty-' + itemId);
+                mostrarNotificacion('Error: elemento no encontrado', 'error');
+                return;
+            }
 
-// Cambiar estado
-// Cambiar estado
-function cambiarEstado(key, pedidoId, event) {
-    if (event) {
-        event.stopPropagation();
-        event.preventDefault();
-    }
+            let cantidad = parseInt(qtyDisplay.textContent);
+            cantidad += delta;
 
-    // Verificar estado actual desde el DOM
-    const card = document.querySelector(`[data-pedido-key="${key}"]`);
-    const estadoActual = card.dataset.estado;
+            if (cantidad < 1) {
+                mostrarModalConfirmar(
+                    '¿Eliminar plato?',
+                    '¿Deseas eliminar este plato del pedido?',
+                    () => eliminarItem(itemId)
+                );
+                return;
+            }
 
-    if (estadoActual === 'cancelado') {
-        mostrarNotificacion('Este pedido ya está cancelado y no se puede modificar', 'error');
-        return;
-    }
+            // Actualizar visualmente de inmediato
+            qtyDisplay.textContent = cantidad;
 
-    const estados = [
-        { value: 'pendiente', label: '🟡 Pendiente' },
-        { value: 'completado', label: '🟢 Completado' },
-        { value: 'cancelado', label: '🔴 Cancelado' }
-    ];
+            // Calcular y actualizar subtotal visualmente
+            const precioUnitario = parseFloat(qtyDisplay.dataset.precio || 0);
+            const nuevoSubtotal = precioUnitario * cantidad;
+            if (subtotalDisplay) {
+                subtotalDisplay.textContent = `$${nuevoSubtotal.toLocaleString('es-AR')}`;
+            }
 
-    let html = `
+            // Actualizar total visualmente
+            actualizarTotal(itemId);
+
+            // Cancelar timer anterior si existe
+            if (updateTimers[itemId]) {
+                clearTimeout(updateTimers[itemId]);
+            }
+
+            // Deshabilitar botones temporalmente para evitar clicks rápidos
+            const btnMenos = event.target.closest('.pedido-item').querySelector('.qty-btn-pedido[onclick*="-1"]');
+            const btnMas = event.target.closest('.pedido-item').querySelector('.qty-btn-pedido[onclick*="1,"]');
+            if (btnMenos) btnMenos.style.opacity = '0.5';
+            if (btnMas) btnMas.style.opacity = '0.5';
+
+            // Programar actualización en servidor con delay de 500ms
+            updateTimers[itemId] = setTimeout(() => {
+                actualizarCantidadEnServidor(itemId, cantidad, qtyDisplay, subtotalDisplay, btnMenos, btnMas);
+            }, 500);
+        }
+
+        // Función separada para actualizar en el servidor
+        function actualizarCantidadEnServidor(itemId, cantidad, qtyDisplay, subtotalDisplay, btnMenos, btnMas) {
+            fetch('{{ url("admin/pedidos/actualizarItem") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json'
+                    },
+                    body: `item_id=${itemId}&cantidad=${cantidad}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Rehabilitar botones
+                    if (btnMenos) btnMenos.style.opacity = '1';
+                    if (btnMas) btnMas.style.opacity = '1';
+
+                    if (data.success) {
+                        // Confirmar valores del servidor
+                        qtyDisplay.textContent = data.cantidad;
+                        if (subtotalDisplay) {
+                            subtotalDisplay.textContent = `$${Number(data.subtotal).toLocaleString('es-AR')}`;
+                        }
+                        actualizarTotal(itemId);
+                        mostrarNotificacion('Cantidad actualizada', 'success');
+                    } else {
+                        mostrarNotificacion(data.message || 'Error al actualizar', 'error');
+                        // Revertir cambios visuales si falla
+                        location.reload();
+                    }
+                })
+                .catch(error => {
+                    // Rehabilitar botones
+                    if (btnMenos) btnMenos.style.opacity = '1';
+                    if (btnMas) btnMas.style.opacity = '1';
+
+                    console.error('Error:', error);
+                    mostrarNotificacion('Error al actualizar cantidad', 'error');
+                    // Revertir cambios visuales
+                    location.reload();
+                });
+        }
+
+        // Actualizar total del pedido
+        function actualizarTotal(itemId) {
+            const item = document.querySelector(`[data-item-id="${itemId}"]`);
+            const card = item.closest('.pedido-card');
+            const items = card.querySelectorAll('.pedido-item');
+
+            let total = 0;
+            items.forEach(i => {
+                const subtotalText = i.querySelector('.item-subtotal').textContent;
+                const subtotal = parseFloat(subtotalText.replace('$', '').replace('.', '').replace(',', '.'));
+                total += subtotal;
+            });
+
+            const totalDisplay = card.querySelector('.pedido-total-value');
+            totalDisplay.textContent = `$${total.toLocaleString('es-AR')}`;
+        }
+
+        // Cambiar estado
+        // Cambiar estado
+        function cambiarEstado(key, pedidoId, event) {
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+
+            // Verificar estado actual desde el DOM
+            const card = document.querySelector(`[data-pedido-key="${key}"]`);
+            const estadoActual = card.dataset.estado;
+
+            if (estadoActual === 'cancelado') {
+                mostrarNotificacion('Este pedido ya está cancelado y no se puede modificar', 'error');
+                return;
+            }
+
+            const estados = [{
+                    value: 'pendiente',
+                    label: '🟡 Pendiente'
+                },
+                {
+                    value: 'completado',
+                    label: '🟢 Completado'
+                },
+                {
+                    value: 'cancelado',
+                    label: '🔴 Cancelado'
+                }
+            ];
+
+            let html = `
         <div class="form-group-editar">
             <label class="form-label-editar">Nuevo Estado:</label>
             <select class="form-control-editar" id="nuevoEstado" onchange="toggleMotivo(this.value)">
     `;
-    
-    estados.forEach(e => {
-        html += `<option value="${e.value}">${e.label}</option>`;
-    });
-    
-    html += `
+
+            estados.forEach(e => {
+                html += `<option value="${e.value}">${e.label}</option>`;
+            });
+
+            html += `
             </select>
         </div>
         <div class="form-group-editar" id="divMotivo" style="display: none;">
@@ -741,84 +910,84 @@ function cambiarEstado(key, pedidoId, event) {
         <button class="btn-guardar-editar" onclick="guardarEstado(${pedidoId}, '${key}')">Guardar</button>
     `;
 
-    document.getElementById('modalEditarBody').innerHTML = html;
-    document.getElementById('modalEditar').classList.add('active');
-}
-
-function toggleMotivo(estado) {
-    const div = document.getElementById('divMotivo');
-    if (estado === 'cancelado') {
-        div.style.display = 'block';
-    } else {
-        div.style.display = 'none';
-    }
-}
-
-function guardarEstado(pedidoId, key) {
-    const nuevoEstado = document.getElementById('nuevoEstado').value;
-    const motivo = document.getElementById('motivoCancelacion') ? document.getElementById('motivoCancelacion').value : '';
-
-    if (nuevoEstado === 'cancelado' && motivo.trim() === '') {
-        mostrarNotificacion('Debes ingresar un motivo para cancelar', 'error');
-        return;
-    }
-
-    fetch('{{ url("admin/pedidos/cambiarEstado") }}/' + pedidoId, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'X-CSRF-TOKEN': csrfToken,
-            'Accept': 'application/json'
-        },
-        body: `estado=${nuevoEstado}&motivo=${encodeURIComponent(motivo)}`
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Cerrar modal y recargar inmediatamente
-            cerrarModalEditar();
-            location.reload();
-        } else {
-            mostrarNotificacion(data.message || 'Error al cambiar estado', 'error');
+            document.getElementById('modalEditarBody').innerHTML = html;
+            document.getElementById('modalEditar').classList.add('active');
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        mostrarNotificacion('Error al cambiar estado', 'error');
-    });
-}
 
-// Imprimir
-function imprimir(pedidoId, event) {
-    if (event) {
-        event.stopPropagation();
-        event.preventDefault();
-    }
-    const url = '{{ url("admin/pedidos/imprimir") }}/' + pedidoId;
-    window.open(url, '_blank');
-}
+        function toggleMotivo(estado) {
+            const div = document.getElementById('divMotivo');
+            if (estado === 'cancelado') {
+                div.style.display = 'block';
+            } else {
+                div.style.display = 'none';
+            }
+        }
 
-// Editar pedido
-function editarPedido(key, primerId, event) {
-    if (event) {
-        event.stopPropagation();
-        event.preventDefault();
-    }
-    const card = document.querySelector(`[data-pedido-key="${key}"]`);
-    const items = card.querySelectorAll('.pedido-item');
+        function guardarEstado(pedidoId, key) {
+            const nuevoEstado = document.getElementById('nuevoEstado').value;
+            const motivo = document.getElementById('motivoCancelacion') ? document.getElementById('motivoCancelacion').value : '';
 
-    let html = `
+            if (nuevoEstado === 'cancelado' && motivo.trim() === '') {
+                mostrarNotificacion('Debes ingresar un motivo para cancelar', 'error');
+                return;
+            }
+
+            fetch('{{ url("admin/pedidos/cambiarEstado") }}/' + pedidoId, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json'
+                    },
+                    body: `estado=${nuevoEstado}&motivo=${encodeURIComponent(motivo)}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Cerrar modal y recargar inmediatamente
+                        cerrarModalEditar();
+                        location.reload();
+                    } else {
+                        mostrarNotificacion(data.message || 'Error al cambiar estado', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    mostrarNotificacion('Error al cambiar estado', 'error');
+                });
+        }
+
+        // Imprimir
+        function imprimir(pedidoId, event) {
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+            const url = '{{ url("admin/pedidos/imprimir") }}/' + pedidoId;
+            window.open(url, '_blank');
+        }
+
+        // Editar pedido
+        function editarPedido(key, primerId, event) {
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+            const card = document.querySelector(`[data-pedido-key="${key}"]`);
+            const items = card.querySelectorAll('.pedido-item');
+
+            let html = `
         <div class="form-group-editar">
             <label class="form-label-editar">Platos del Pedido:</label>
             <div style="max-height: 300px; overflow-y: auto; margin-bottom: 15px;">
     `;
 
-    items.forEach(item => {
-        const itemId = item.dataset.itemId;
-        const nombre = item.querySelector('.item-nombre').textContent;
-        const cantidad = item.querySelector('.qty-display').textContent;
+            items.forEach(item => {
+                const itemId = item.dataset.itemId;
+                const nombre = item.querySelector('.item-nombre').textContent;
+                const cantidad = item.querySelector('.qty-display').textContent;
 
-        html += `
+                html += `
             <div class="item-editar" style="display: flex; align-items: center; justify-content: space-between; padding: 10px; background: #2a2a2a; margin-bottom: 8px; border-radius: 8px;">
                 <div style="flex: 1;">
                     <div style="color: #fff; font-weight: 600;">${nombre}</div>
@@ -832,9 +1001,9 @@ function editarPedido(key, primerId, event) {
                 </div>
             </div>
         `;
-    });
+            });
 
-    html += `
+            html += `
             </div>
         </div>
         <div class="form-group-editar">
@@ -845,73 +1014,73 @@ function editarPedido(key, primerId, event) {
         </div>
     `;
 
-    document.getElementById('modalEditarBody').innerHTML = html;
-    document.getElementById('modalEditar').classList.add('active');
-}
-
-// ... (omit undefined functions)
-
-function editarCantidadModal(itemId, delta) {
-    const qtyDisplay = document.getElementById(`modal-qty-${itemId}`);
-    let cantidad = parseInt(qtyDisplay.textContent);
-    cantidad += delta;
-
-    if (cantidad < 1) {
-        mostrarModalConfirmar(
-            '¿Eliminar plato?',
-            '¿Deseas eliminar este plato del pedido?',
-            () => eliminarItemModal(itemId)
-        );
-        return;
-    }
-
-    qtyDisplay.textContent = cantidad;
-
-    // Actualizar en el servidor
-    cambiarCantidad(itemId, delta);
-}
-
-function eliminarItemModal(itemId) {
-    fetch('{{ url("admin/pedidos/actualizarItem") }}', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'X-CSRF-TOKEN': csrfToken,
-            'Accept': 'application/json'
-        },
-        body: `item_id=${itemId}&cantidad=0`
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            mostrarNotificacion('Plato eliminado', 'success');
-            setTimeout(() => location.reload(), 1000);
-        } else {
-            mostrarNotificacion(data.message || 'Error al eliminar', 'error');
+            document.getElementById('modalEditarBody').innerHTML = html;
+            document.getElementById('modalEditar').classList.add('active');
         }
-    });
-}
 
-function mostrarSelectorPlatos(key, primerId) {
-    // Obtener lista de platos disponibles desde el backend
-    fetch('{{ url("admin/menu/obtenerPlatos") }}')
-        .then(response => response.json())
-        .then(data => {
-            if (!data.success || !data.platos || data.platos.length === 0) {
-                mostrarNotificacion('No hay platos disponibles', 'error');
+        // ... (omit undefined functions)
+
+        function editarCantidadModal(itemId, delta) {
+            const qtyDisplay = document.getElementById(`modal-qty-${itemId}`);
+            let cantidad = parseInt(qtyDisplay.textContent);
+            cantidad += delta;
+
+            if (cantidad < 1) {
+                mostrarModalConfirmar(
+                    '¿Eliminar plato?',
+                    '¿Deseas eliminar este plato del pedido?',
+                    () => eliminarItemModal(itemId)
+                );
                 return;
             }
 
-            // Crear el select con los platos disponibles
-            let platosOptions = '<option value="">-- Selecciona un plato --</option>';
-            data.platos.forEach(plato => {
-                const stockInfo = plato.stock_ilimitado == 1 ? '∞' : `Stock: ${plato.stock}`;
-                platosOptions += `<option value="${plato.id}" data-precio="${plato.precio}">
+            qtyDisplay.textContent = cantidad;
+
+            // Actualizar en el servidor
+            cambiarCantidad(itemId, delta);
+        }
+
+        function eliminarItemModal(itemId) {
+            fetch('{{ url("admin/pedidos/actualizarItem") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json'
+                    },
+                    body: `item_id=${itemId}&cantidad=0`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        mostrarNotificacion('Plato eliminado', 'success');
+                        setTimeout(() => location.reload(), 1000);
+                    } else {
+                        mostrarNotificacion(data.message || 'Error al eliminar', 'error');
+                    }
+                });
+        }
+
+        function mostrarSelectorPlatos(key, primerId) {
+            // Obtener lista de platos disponibles desde el backend
+            fetch('{{ url("admin/menu/obtenerPlatos") }}')
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.success || !data.platos || data.platos.length === 0) {
+                        mostrarNotificacion('No hay platos disponibles', 'error');
+                        return;
+                    }
+
+                    // Crear el select con los platos disponibles
+                    let platosOptions = '<option value="">-- Selecciona un plato --</option>';
+                    data.platos.forEach(plato => {
+                        const stockInfo = plato.stock_ilimitado == 1 ? '∞' : `Stock: ${plato.stock}`;
+                        platosOptions += `<option value="${plato.id}" data-precio="${plato.precio}">
                     ${plato.nombre} - $${Number(plato.precio).toLocaleString('es-AR')} (${stockInfo})
                 </option>`;
-            });
+                    });
 
-            let html = `
+                    let html = `
                 <div class="form-group-editar">
                     <label class="form-label-editar">Seleccionar Plato:</label>
                     <select class="form-control-editar" id="nuevoPlatoId">
@@ -930,214 +1099,214 @@ function mostrarSelectorPlatos(key, primerId) {
                 </button>
             `;
 
-            document.getElementById('modalEditarBody').innerHTML = html;
-        })
-        .catch(error => {
-            console.error('Error al cargar platos:', error);
-            mostrarNotificacion('Error al cargar los platos disponibles', 'error');
-        });
-}
-
-
-function agregarPlatoAPedido(key, primerId) {
-    const platoId = document.getElementById('nuevoPlatoId').value;
-    const cantidad = document.getElementById('nuevoPlatoCantidad').value;
-
-    if (!platoId || platoId === '') {
-        mostrarNotificacion('Selecciona un plato', 'error');
-        return;
-    }
-
-    if (!cantidad || cantidad < 1) {
-        mostrarNotificacion('Ingresa una cantidad válida', 'error');
-        return;
-    }
-
-    // Crear nuevo pedido con este plato
-    fetch('{{ url("admin/pedidos/agregarPlato") }}', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'X-CSRF-TOKEN': csrfToken,
-            'Accept': 'application/json'
-        },
-        body: `pedido_key=${encodeURIComponent(key)}&plato_id=${platoId}&cantidad=${cantidad}&reference_id=${primerId}`
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            mostrarNotificacion('Plato agregado correctamente', 'success');
-            setTimeout(() => location.reload(), 1000);
-        } else {
-            mostrarNotificacion(data.message || 'Error al agregar plato', 'error');
+                    document.getElementById('modalEditarBody').innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error al cargar platos:', error);
+                    mostrarNotificacion('Error al cargar los platos disponibles', 'error');
+                });
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        mostrarNotificacion('Error al agregar plato', 'error');
-    });
-}
 
-function guardarEdicion(key) {
-    // Por ahora solo cierra el modal
-    // Puedes implementar la lógica de guardado aquí
-    cerrarModalEditar();
-    mostrarNotificacion('Cambios guardados', 'success');
-}
 
-// Eliminar item
-function eliminarItem(itemId) {
-    fetch('{{ url("admin/pedidos/eliminar") }}/' + itemId, {
-        method: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': csrfToken,
-            'Accept': 'application/json'
+        function agregarPlatoAPedido(key, primerId) {
+            const platoId = document.getElementById('nuevoPlatoId').value;
+            const cantidad = document.getElementById('nuevoPlatoCantidad').value;
+
+            if (!platoId || platoId === '') {
+                mostrarNotificacion('Selecciona un plato', 'error');
+                return;
+            }
+
+            if (!cantidad || cantidad < 1) {
+                mostrarNotificacion('Ingresa una cantidad válida', 'error');
+                return;
+            }
+
+            // Crear nuevo pedido con este plato
+            fetch('{{ url("admin/pedidos/agregarPlato") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json'
+                    },
+                    body: `pedido_key=${encodeURIComponent(key)}&plato_id=${platoId}&cantidad=${cantidad}&reference_id=${primerId}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        mostrarNotificacion('Plato agregado correctamente', 'success');
+                        setTimeout(() => location.reload(), 1000);
+                    } else {
+                        mostrarNotificacion(data.message || 'Error al agregar plato', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    mostrarNotificacion('Error al agregar plato', 'error');
+                });
         }
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            location.reload();
+
+        function guardarEdicion(key) {
+            // Por ahora solo cierra el modal
+            // Puedes implementar la lógica de guardado aquí
+            cerrarModalEditar();
+            mostrarNotificacion('Cambios guardados', 'success');
         }
-    });
-}
 
-// Eliminar pedido
-function eliminarPedido(pedidoId, event) {
-    if (event) {
-        event.stopPropagation();
-        event.preventDefault();
-    }
+        // Eliminar item
+        function eliminarItem(itemId) {
+            fetch('{{ url("admin/pedidos/eliminar") }}/' + itemId, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    }
+                });
+        }
 
-    // Mostrar modal de confirmación personalizado
-    mostrarModalConfirmar(
-        '¿Eliminar pedido?',
-        '¿Estás seguro de que deseas eliminar todo el pedido? Esta acción no se puede deshacer.',
-        () => {
-            // Callback cuando se confirma
-            fetch('{{ url("admin/pedidos/eliminar") }}/' + pedidoId, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken,
-                    'Accept': 'application/json'
+        // Eliminar pedido
+        function eliminarPedido(pedidoId, event) {
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+
+            // Mostrar modal de confirmación personalizado
+            mostrarModalConfirmar(
+                '¿Eliminar pedido?',
+                '¿Estás seguro de que deseas eliminar todo el pedido? Esta acción no se puede deshacer.',
+                () => {
+                    // Callback cuando se confirma
+                    fetch('{{ url("admin/pedidos/eliminar") }}/' + pedidoId, {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': csrfToken,
+                                'Accept': 'application/json'
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                mostrarNotificacion('Pedido eliminado correctamente', 'success');
+                                setTimeout(() => location.reload(), 1000);
+                            } else {
+                                mostrarNotificacion(data.message || 'Error al eliminar pedido', 'error');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            mostrarNotificacion('Error al eliminar pedido', 'error');
+                        });
                 }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    mostrarNotificacion('Pedido eliminado correctamente', 'success');
-                    setTimeout(() => location.reload(), 1000);
-                } else {
-                    mostrarNotificacion(data.message || 'Error al eliminar pedido', 'error');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                mostrarNotificacion('Error al eliminar pedido', 'error');
-            });
+            );
         }
-    );
-}
 
-function cerrarModalEditar() {
-    document.getElementById('modalEditar').classList.remove('active');
-}
+        function cerrarModalEditar() {
+            document.getElementById('modalEditar').classList.remove('active');
+        }
 
-// Funciones del modal de confirmación
-function mostrarModalConfirmar(titulo, mensaje, callback) {
-    document.getElementById('modalConfirmarTitulo').textContent = titulo;
-    document.getElementById('modalConfirmarMensaje').textContent = mensaje;
+        // Funciones del modal de confirmación
+        function mostrarModalConfirmar(titulo, mensaje, callback) {
+            document.getElementById('modalConfirmarTitulo').textContent = titulo;
+            document.getElementById('modalConfirmarMensaje').textContent = mensaje;
 
-    // Guardar el callback
-    modalConfirmarCallback = callback;
+            // Guardar el callback
+            modalConfirmarCallback = callback;
 
-    // Asignar el evento al botón de confirmar
-    const botonConfirmar = document.getElementById('modalConfirmarBoton');
-    botonConfirmar.onclick = function() {
-        cerrarModalConfirmar();
-        if (modalConfirmarCallback) {
-            modalConfirmarCallback();
+            // Asignar el evento al botón de confirmar
+            const botonConfirmar = document.getElementById('modalConfirmarBoton');
+            botonConfirmar.onclick = function() {
+                cerrarModalConfirmar();
+                if (modalConfirmarCallback) {
+                    modalConfirmarCallback();
+                    modalConfirmarCallback = null;
+                }
+            };
+
+            // Mostrar el modal
+            document.getElementById('modalConfirmar').classList.add('active');
+        }
+
+        function cerrarModalConfirmar() {
+            document.getElementById('modalConfirmar').classList.remove('active');
             modalConfirmarCallback = null;
         }
-    };
 
-    // Mostrar el modal
-    document.getElementById('modalConfirmar').classList.add('active');
-}
-
-function cerrarModalConfirmar() {
-    document.getElementById('modalConfirmar').classList.remove('active');
-    modalConfirmarCallback = null;
-}
-
-function mostrarNotificacion(mensaje, tipo) {
-    const notif = document.createElement('div');
-    notif.className = `alert alert-${tipo === 'success' ? 'success' : 'danger'} position-fixed top-0 end-0 m-3`;
-    notif.style.zIndex = '10000';
-    notif.textContent = mensaje;
-    document.body.appendChild(notif);
-    setTimeout(() => notif.remove(), 3000);
-}
-
-// Auto-refresh cada 30 segundos para detectar nuevos pedidos
-let autoRefreshInterval = null;
-let ultimoHash = location.href + document.querySelector('.container-fluid').innerHTML.length;
-
-function iniciarAutoRefresh() {
-    // Refrescar cada 30 segundos
-    autoRefreshInterval = setInterval(() => {
-        // Solo refrescar si no hay modales abiertos
-        const modalAbierto = document.querySelector('.modal-editar.active');
-        if (modalAbierto) {
-            return; // No refrescar si hay un modal abierto
+        function mostrarNotificacion(mensaje, tipo) {
+            const notif = document.createElement('div');
+            notif.className = `alert alert-${tipo === 'success' ? 'success' : 'danger'} position-fixed top-0 end-0 m-3`;
+            notif.style.zIndex = '10000';
+            notif.textContent = mensaje;
+            document.body.appendChild(notif);
+            setTimeout(() => notif.remove(), 3000);
         }
 
-        // Verificar cambios sin hacer scroll
-        fetch(window.location.href, {
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-            }
-        })
-        .then(response => response.text())
-        .then(html => {
-            // Extraer solo el contenido de pedidos
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-            const nuevoContenido = doc.querySelector('.container-fluid');
+        // Auto-refresh cada 30 segundos para detectar nuevos pedidos
+        let autoRefreshInterval = null;
+        let ultimoHash = location.href + document.querySelector('.container-fluid').innerHTML.length;
 
-            if (nuevoContenido) {
-                const nuevoHash = window.location.href + nuevoContenido.innerHTML.length;
-
-                // Solo recargar si hay cambios
-                if (nuevoHash !== ultimoHash) {
-                    console.log('Nuevos pedidos detectados, recargando...');
-
-                    // Guardar posición del scroll
-                    const scrollPos = window.scrollY;
-
-                    // Recargar
-                    location.reload();
+        function iniciarAutoRefresh() {
+            // Refrescar cada 30 segundos
+            autoRefreshInterval = setInterval(() => {
+                // Solo refrescar si no hay modales abiertos
+                const modalAbierto = document.querySelector('.modal-editar.active');
+                if (modalAbierto) {
+                    return; // No refrescar si hay un modal abierto
                 }
+
+                // Verificar cambios sin hacer scroll
+                fetch(window.location.href, {
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => response.text())
+                    .then(html => {
+                        // Extraer solo el contenido de pedidos
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+                        const nuevoContenido = doc.querySelector('.container-fluid');
+
+                        if (nuevoContenido) {
+                            const nuevoHash = window.location.href + nuevoContenido.innerHTML.length;
+
+                            // Solo recargar si hay cambios
+                            if (nuevoHash !== ultimoHash) {
+                                console.log('Nuevos pedidos detectados, recargando...');
+
+                                // Guardar posición del scroll
+                                const scrollPos = window.scrollY;
+
+                                // Recargar
+                                location.reload();
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al verificar actualizaciones:', error);
+                    });
+            }, 30000); // 30 segundos
+
+            console.log('Auto-refresh activado (cada 30 segundos)');
+        }
+
+        // Iniciar auto-refresh al cargar la página
+        iniciarAutoRefresh();
+
+        // Detener auto-refresh si el usuario sale de la página
+        window.addEventListener('beforeunload', () => {
+            if (autoRefreshInterval) {
+                clearInterval(autoRefreshInterval);
             }
-        })
-        .catch(error => {
-            console.error('Error al verificar actualizaciones:', error);
         });
-    }, 30000); // 30 segundos
-
-    console.log('Auto-refresh activado (cada 30 segundos)');
-}
-
-// Iniciar auto-refresh al cargar la página
-iniciarAutoRefresh();
-
-// Detener auto-refresh si el usuario sale de la página
-window.addEventListener('beforeunload', () => {
-    if (autoRefreshInterval) {
-        clearInterval(autoRefreshInterval);
-    }
-});
-</script>
+    </script>
 
 </section>
 @endsection

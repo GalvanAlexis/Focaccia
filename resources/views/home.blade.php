@@ -30,7 +30,7 @@
     </a>
   </div>
 
-  <a href="{{ url('carrito') }}" aria-label="Mi Carrito" class="cart-header-absolute">
+  <a href="javascript:void(0)" onclick="goToCart()" aria-label="Mi Carrito" class="cart-header-absolute">
     <i class="bi bi-cart-fill"></i>
   </a>
 
@@ -166,7 +166,10 @@
 </div>
 
 <!-- Botón Flotante del Carrito -->
-<div class="cart-float" onclick="goToCart()" id="cartFloat" style="display: none;" data-carrito-url="{{ url('carrito') }}" data-agregar-url="{{ url('carrito/agregar') }}">
+<div class="cart-float" onclick="goToCart()" id="cartFloat" style="display: none;" 
+  data-carrito-url="{{ url('carrito') }}" 
+  data-agregar-url="{{ url('carrito/agregar') }}"
+  data-sincronizar-url="{{ url('carrito/sincronizar') }}">
   <i class="bi bi-cart3 cart-icon"></i>
   <span>Ver tu pedido</span>
   <div class="cart-badge" id="cartCount">0</div>

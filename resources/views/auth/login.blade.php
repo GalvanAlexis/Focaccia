@@ -1,184 +1,360 @@
-@extends('layouts.main')
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Iniciar Sesión | Focaccia</title>
 
-@section('title', 'Iniciar Sesión')
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
 
-@section('content')
+    <!-- Styles / Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-<style>
-    body {
-        background-color: #FDFDFC;
-        color: #1b1b18;
-        font-family: var(--font-sans);
-    }
+    <style>
+        :root {
+            /* Welcome palette - Light mode */
+            --bg-primary: #FDFDFC;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #fff2f2;
+            --text-primary: #1b1b18;
+            --text-secondary: #706f6c;
+            --text-muted: #A1A09A;
+            --border-primary: #e3e3e0;
+            --border-accent: #19140035;
+            --border-hover: #1915014a;
+            --accent-primary: #f53003;
+            --accent-hover: #FF4433;
+            --shadow-light: rgba(0,0,0,0.03);
+            --shadow-medium: rgba(0,0,0,0.06);
+            --inset-shadow: rgba(26,26,0,0.16);
+            
+            /* Welcome palette - Dark mode */
+            --dark-bg-primary: #0a0a0a;
+            --dark-bg-secondary: #161615;
+            --dark-bg-tertiary: #1D0002;
+            --dark-text-primary: #EDEDEC;
+            --dark-text-secondary: #A1A09A;
+            --dark-border-primary: #3E3E3A;
+            --dark-border-hover: #62605b;
+            --dark-accent: #FF4433;
+            --dark-btn-bg: #eeeeec;
+            --dark-btn-text: #1C1C1A;
+            
+            /* Laravel logo SVG colors */
+            --laravel-red-light: #f53003;
+            --laravel-red-dark: #F61500;
+        }
 
-    .login-container {
-        min-height: 100vh;
-        background-color: #000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 2rem 0;
-    }
+        body {
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--dark-bg-primary) 100%);
+            color: var(--text-primary);
+            font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            margin: 0;
+        }
 
-    .login-card {
-        background-color: #1a1a1a;
-        border: 2px solid #D4B68A;
-        border-radius: 20px;
-        box-shadow: 0 20px 60px rgba(212, 182, 138, 0.3);
-        overflow: hidden;
-        max-width: 450px;
-        width: 100%;
-    }
+        .login-container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
 
-    .login-header {
-        background-color: #D4B68A;
-        color: #000;
-        padding: 2.5rem 2rem;
-        text-align: center;
-    }
+        .login-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: 16px;
+            box-shadow: 0 20px 60px var(--shadow-light);
+            overflow: hidden;
+            max-width: 450px;
+            width: 100%;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
+        }
 
-    .login-header h2 {
-        margin: 0;
-        font-size: 2rem;
-        font-weight: 700;
-    }
+        .login-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 30px 80px var(--shadow-medium);
+        }
 
-    .login-header p {
-        margin: 0.5rem 0 0 0;
-        opacity: 0.8;
-        font-size: 0.95rem;
-    }
+        .login-header {
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-hover) 100%);
+            color: var(--bg-primary);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-accent);
+        }
 
-    .login-body {
-        padding: 2.5rem 2rem;
-    }
+        .login-header h2 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
 
-    .form-floating > .form-control {
-        background-color: #2a2a2a;
-        border: 2px solid #D4B68A;
-        border-radius: 10px;
-        padding: 1rem 0.75rem;
-        color: #f5f5dc;
-    }
+        .login-header p {
+            margin: 0.5rem 0 0 0;
+            opacity: 0.9;
+            font-size: 0.95rem;
+            color: var(--bg-secondary);
+        }
 
-    .form-floating > .form-control:focus {
-        border-color: #D4B68A;
-        box-shadow: 0 0 0 0.2rem rgba(212, 182, 138, 0.25);
-        background-color: #2a2a2a;
-        color: #f5f5dc;
-    }
+        .login-body {
+            padding: 2.5rem 2rem;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            box-shadow: inset 0px 0px 0px 1px var(--inset-shadow);
+            border-top: none;
+        }
 
-    .form-floating > label {
-        color: #D4B68A;
-    }
+        .form-floating > .form-control {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-primary);
+            border-radius: 8px;
+            padding: 1rem 0.75rem;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+            font-family: inherit;
+            height: auto;
+        }
 
-    .form-floating > .form-control:focus ~ label,
-    .form-floating > .form-control:not(:placeholder-shown) ~ label {
-        color: #D4B68A;
-    }
+        .form-floating > .form-control:focus {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 0.2rem rgba(245, 48, 3, 0.25);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            outline: none;
+        }
 
-    .btn-login {
-        background-color: #D4B68A;
-        border: none;
-        border-radius: 10px;
-        padding: 0.875rem;
-        font-weight: 600;
-        font-size: 1.05rem;
-        color: #000;
-        transition: transform 0.2s, box-shadow 0.2s;
-    }
+        .form-floating > label {
+            color: var(--text-secondary);
+            font-family: inherit;
+        }
 
-    .btn-login:hover {
-        background-color: #c9a770;
-        color: #000;
-        transform: translateY(-2px);
-        box-shadow: 0 10px 20px rgba(212, 182, 138, 0.3);
-    }
+        .form-floating > .form-control:focus ~ label,
+        .form-floating > .form-control:not(:placeholder-shown) ~ label {
+            color: var(--accent-primary);
+        }
 
-    .btn-google {
-        border: 2px solid #D4B68A;
-        border-radius: 10px;
-        padding: 0.875rem;
-        font-weight: 600;
-        transition: all 0.2s;
-        background: #2a2a2a;
-        color: #D4B68A;
-    }
+        .btn-login {
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-hover) 100%);
+            border: 1px solid var(--accent-primary);
+            border-radius: 8px;
+            padding: 0.875rem;
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: var(--bg-primary);
+            transition: all 0.2s ease;
+            font-family: inherit;
+            letter-spacing: 0.025em;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
 
-    .btn-google:hover {
-        border-color: #D4B68A;
-        background: #D4B68A;
-        color: #000;
-        transform: translateY(-2px);
-        box-shadow: 0 10px 20px rgba(212, 182, 138, 0.2);
-    }
+        .btn-login:hover {
+            background: linear-gradient(135deg, var(--accent-hover) 0%, var(--accent-primary) 100%);
+            color: var(--bg-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(245, 48, 3, 0.3);
+            border-color: var(--accent-hover);
+        }
 
-    .divider {
-        display: flex;
-        align-items: center;
-        text-align: center;
-        margin: 1.5rem 0;
-    }
+        .btn-login:active {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 10px rgba(245, 48, 3, 0.2);
+        }
 
-    .divider::before,
-    .divider::after {
-        content: '';
-        flex: 1;
-        border-bottom: 1px solid #D4B68A;
-    }
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
 
-    .divider span {
-        padding: 0 1rem;
-        color: #D4B68A;
-        font-size: 0.9rem;
-    }
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--border-primary);
+            background: linear-gradient(90deg, transparent, var(--border-primary), transparent);
+        }
 
-    .form-check-input {
-        background-color: #2a2a2a;
-        border-color: #D4B68A;
-    }
+        .divider span {
+            padding: 0 1rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            background-color: var(--bg-secondary);
+            font-family: inherit;
+        }
 
-    .form-check-input:checked {
-        background-color: #D4B68A;
-        border-color: #D4B68A;
-    }
+        .form-check-input {
+            background-color: var(--bg-primary);
+            border-color: var(--border-primary);
+            border-radius: 4px;
+        }
 
-    .form-check-label {
-        color: #f5f5dc;
-    }
+        .form-check-input:checked {
+            background-color: var(--accent-primary);
+            border-color: var(--accent-primary);
+        }
 
-    .login-footer {
-        margin-top: 1.5rem;
-        padding-top: 1.5rem;
-        border-top: 1px solid #D4B68A;
-        text-align: center;
-    }
+        .form-check-input:focus {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 0.2rem rgba(245, 48, 3, 0.25);
+        }
 
-    .login-footer a {
-        color: #D4B68A;
-        text-decoration: none;
-        font-weight: 600;
-    }
+        .form-check-label {
+            color: var(--text-primary);
+            font-family: inherit;
+        }
 
-    .login-footer a:hover {
-        color: #c9a770;
-        text-decoration: underline;
-    }
 
-    .login-footer p {
-        color: #f5f5dc;
-    }
 
-    .alert {
-        border-radius: 10px;
-    }
-</style>
+        .alert {
+            border-radius: 10px;
+            border: 1px solid;
+            font-family: inherit;
+            margin-bottom: 1rem;
+        }
+
+        .alert-danger {
+            background-color: #fff2f2;
+            border-color: var(--accent-primary);
+            color: var(--text-primary);
+        }
+
+        .alert-success {
+            background-color: rgba(34, 197, 94, 0.1);
+            border-color: #22c55e;
+            color: var(--text-primary);
+        }
+
+        .brand-element {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            body {
+                padding: 0.5rem;
+            }
+            
+            .login-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .login-card {
+                max-width: 100%;
+            }
+
+            .login-header {
+                padding: 2rem 1.5rem;
+            }
+
+            .login-body {
+                padding: 2rem 1.5rem;
+            }
+
+            .login-header h2 {
+                font-size: 1.75rem;
+            }
+
+            .login-header p {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 0.25rem;
+            }
+
+            .login-header {
+                padding: 1.5rem 1rem;
+            }
+
+            .login-body {
+                padding: 1.5rem 1rem;
+            }
+
+            .login-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .btn-login {
+                padding: 0.75rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* Animation improvements */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Improved form styling */
+        .form-floating {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-check {
+            margin-bottom: 1rem;
+        }
+
+
+
+        /* Icon improvements */
+        .btn-login svg {
+            transition: transform 0.2s ease;
+        }
+
+        .btn-login:hover svg {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
 
     <div class="login-container">
         <div class="login-card">
             <div class="login-header">
-                <h2>Bienvenido</h2>
-                <p>Inicia sesión en tu cuenta</p>
+                <div class="brand-element">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7V17L12 22L22 17V7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 22V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M22 7L12 12L2 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h2>Focaccia</h2>
+                </div>
             </div>
 
             <div class="login-body">
@@ -230,17 +406,33 @@
                         </label>
                     </div>
 
-                    <div class="d-grid mt-4">
-                        <button type="submit" class="btn btn-login btn-lg">Iniciar Sesión</button>
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-login btn-lg w-full">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15 3H9C7.89543 3 7 3.89543 7 5V19C7 20.1046 7.89543 21 9 21H15C16.1046 21 17 20.1046 17 19V5C17 3.89543 16.1046 3 15 3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M10 7H14M10 11H14M10 15H14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Iniciar Sesión
+                        </button>
                     </div>
 
-                    <div class="login-footer">
-                        <p class="mb-2">¿No tienes cuenta? <a href="{{ route('register') }}">Regístrate aquí</a></p>
-                    </div>
+
 
                 </form>
             </div>
         </div>
     </div>
 
-@endsection
+    <!-- Scripts -->
+    <script>
+        // Add any custom JavaScript here
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-focus on email field for better UX
+            const emailInput = document.getElementById('floatingEmailInput');
+            if (emailInput && !emailInput.value) {
+                emailInput.focus();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -13,12 +13,12 @@
             </div>
             <div class="d-flex gap-2">
                 <a href="{{ url('admin/caja-chica/archivo') }}"
-                   class="btn btn-secondary btn-sm">
+                    class="btn btn-secondary btn-sm">
                     <i class="bi bi-folder"></i> Archivo
                 </a>
                 <a href="{{ url('admin/caja-chica/imprimir/' . $fecha) }}"
-                   target="_blank"
-                   class="btn btn-warning btn-sm">
+                    target="_blank"
+                    class="btn btn-warning btn-sm">
                     <i class="bi bi-printer"></i> Imprimir
                 </a>
             </div>
@@ -26,17 +26,17 @@
 
         <!-- Alertas -->
         @if(session()->has('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
         @endif
 
         @if(session()->has('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ session('error') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
         @endif
 
         <!-- Resumen -->
@@ -70,59 +70,67 @@
         <!-- Formulario Agregar Movimiento -->
         @if($esHoy)
         <div class="card mb-4" style="background-color: #1a1a1a; border: 1px solid #D4B68A;">
-            <div class="card-header" style="background-color: #D4B68A; color: #000;">
+            <div class="card-header d-flex justify-content-between align-items-center"
+                style="background-color: #D4B68A; color: #000; cursor: pointer;"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseMovimiento"
+                aria-expanded="false"
+                aria-controls="collapseMovimiento">
                 <h5 class="mb-0 fw-bold"><i class="bi bi-plus-circle"></i> Agregar Movimiento</h5>
+                <i class="bi bi-chevron-down fw-bold"></i>
             </div>
-            <div class="card-body text-light">
-                <form action="{{ url('admin/caja-chica/agregar') }}" method="POST">
-                    {{ csrf_field() }}
-                    <div class="row g-3">
-                        <div class="col-md-2">
-                            <label class="form-label small">Fecha</label>
-                            <input type="date" name="fecha" id="inputFecha" value="{{ $fecha }}" required
-                                   class="form-control form-control-sm" readonly>
-                        </div>
-                        <div class="col-md-2">
-                            <label class="form-label small">Hora</label>
-                            <input type="time" name="hora" id="inputHora" value="{{ date('H:i') }}" required
-                                   class="form-control form-control-sm">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label small">Concepto</label>
-                            <input type="text" name="concepto" required
-                                   class="form-control form-control-sm"
-                                   placeholder="Descripción del movimiento">
-                        </div>
-                        <div class="col-md-2">
-                            <label class="form-label small">Tipo</label>
-                            <select name="tipo" required class="form-select form-select-sm">
-                                <option value="entrada">Entrada</option>
-                                <option value="salida">Salida</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <label class="form-label small">Monto</label>
-                            <div class="input-group input-group-sm">
-                                <span class="input-group-text">$</span>
-                                <input type="number" name="monto" step="0.01" min="0.01" required
-                                       class="form-control form-control-sm">
+            <div class="collapse" id="collapseMovimiento">
+                <div class="card-body text-light">
+                    <form action="{{ url('admin/caja-chica/agregar') }}" method="POST">
+                        {{ csrf_field() }}
+                        <div class="row g-3">
+                            <div class="col-md-2">
+                                <label class="form-label small">Fecha</label>
+                                <input type="date" name="fecha" id="inputFecha" value="{{ $fecha }}" required
+                                    class="form-control form-control-sm" readonly>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label small">Hora</label>
+                                <input type="time" name="hora" id="inputHora" value="{{ date('H:i') }}" required
+                                    class="form-control form-control-sm">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small">Concepto</label>
+                                <input type="text" name="concepto" required
+                                    class="form-control form-control-sm"
+                                    placeholder="Descripción del movimiento">
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label small">Tipo</label>
+                                <select name="tipo" required class="form-select form-select-sm">
+                                    <option value="entrada">Entrada</option>
+                                    <option value="salida">Salida</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label small">Monto</label>
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" name="monto" step="0.01" min="0.01" required
+                                        class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-end">
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" name="es_digital" value="1" id="esDigital">
+                                    <label class="form-check-label small" for="esDigital">
+                                        Dinero Digital
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-auto d-flex align-items-end">
+                                <button type="submit" class="btn btn-success btn-sm w-100">
+                                    <i class="bi bi-check-lg"></i> Agregar
+                                </button>
                             </div>
                         </div>
-                        <div class="col-md-2 d-flex align-items-end">
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" name="es_digital" value="1" id="esDigital">
-                                <label class="form-check-label small" for="esDigital">
-                                    Dinero Digital
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-auto d-flex align-items-end">
-                            <button type="submit" class="btn btn-success btn-sm w-100">
-                                <i class="bi bi-check-lg"></i> Agregar
-                            </button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
         @endif
@@ -152,54 +160,54 @@
                             @php
                             $saldoAcumulado = 0;
                             @endphp
-                            
+
                             @if(empty($movimientos))
-                                <tr>
-                                    <td colspan="{{ $esHoy ? 7 : 6 }}" class="text-center py-4 text-light" style="opacity: 0.7;">
-                                        <i class="bi bi-inbox"></i> No hay movimientos para esta fecha
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td colspan="{{ $esHoy ? 7 : 6 }}" class="text-center py-4 text-light" style="opacity: 0.7;">
+                                    <i class="bi bi-inbox"></i> No hay movimientos para esta fecha
+                                </td>
+                            </tr>
                             @else
-                                @foreach($movimientos as $mov)
-                                    @php
-                                    if ($mov['tipo'] === 'entrada') {
-                                        $saldoAcumulado += $mov['monto'];
-                                    } else {
-                                        $saldoAcumulado -= $mov['monto'];
-                                    }
-                                    @endphp
-                                    <tr>
-                                        <td class="d-none d-md-table-cell small text-light">
-                                            {{ date('d/m/Y', strtotime($mov['fecha'])) }}
-                                        </td>
-                                        <td class="small text-light">{{ date('H:i', strtotime($mov['hora'])) }}</td>
-                                        <td class="small text-light">{{ $mov['concepto'] }}</td>
-                                        <td class="text-end fw-bold" style="color: #28a745;">
-                                            {{ $mov['tipo'] === 'entrada' ? '$' . number_format($mov['monto'], 2) : '-' }}
-                                        </td>
-                                        <td class="text-end fw-bold" style="color: #dc3545;">
-                                            {{ $mov['tipo'] === 'salida' ? '$' . number_format($mov['monto'], 2) : '-' }}
-                                        </td>
-                                        <td class="text-end fw-bold" style="color: #D4B68A;">
-                                            ${{ number_format($saldoAcumulado, 2) }}
-                                        </td>
-                                        @if($esHoy)
-                                        <td class="text-center">
-                                            <a href="{{ url('admin/caja-chica/editar/' . $mov['id']) }}"
-                                               class="btn btn-sm btn-outline-warning me-1"
-                                               title="Editar">
-                                                <i class="bi bi-pencil"></i>
-                                            </a>
-                                            <a href="{{ url('admin/caja-chica/eliminar/' . $mov['id']) }}"
-                                               onclick="return confirm('¿Eliminar este movimiento?')"
-                                               class="btn btn-sm btn-outline-danger"
-                                               title="Eliminar">
-                                                <i class="bi bi-trash"></i>
-                                            </a>
-                                        </td>
-                                        @endif
-                                    </tr>
-                                @endforeach
+                            @foreach($movimientos as $mov)
+                            @php
+                            if ($mov['tipo'] === 'entrada') {
+                            $saldoAcumulado += $mov['monto'];
+                            } else {
+                            $saldoAcumulado -= $mov['monto'];
+                            }
+                            @endphp
+                            <tr>
+                                <td class="d-none d-md-table-cell small text-light">
+                                    {{ date('d/m/Y', strtotime($mov['fecha'])) }}
+                                </td>
+                                <td class="small text-light">{{ date('H:i', strtotime($mov['hora'])) }}</td>
+                                <td class="small text-light">{{ $mov['concepto'] }}</td>
+                                <td class="text-end fw-bold" style="color: #28a745;">
+                                    {{ $mov['tipo'] === 'entrada' ? '$' . number_format($mov['monto'], 2) : '-' }}
+                                </td>
+                                <td class="text-end fw-bold" style="color: #dc3545;">
+                                    {{ $mov['tipo'] === 'salida' ? '$' . number_format($mov['monto'], 2) : '-' }}
+                                </td>
+                                <td class="text-end fw-bold" style="color: #D4B68A;">
+                                    ${{ number_format($saldoAcumulado, 2) }}
+                                </td>
+                                @if($esHoy)
+                                <td class="text-center">
+                                    <a href="{{ url('admin/caja-chica/editar/' . $mov['id']) }}"
+                                        class="btn btn-sm btn-outline-warning me-1"
+                                        title="Editar">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a href="{{ url('admin/caja-chica/eliminar/' . $mov['id']) }}"
+                                        onclick="return confirm('¿Eliminar este movimiento?')"
+                                        class="btn btn-sm btn-outline-danger"
+                                        title="Eliminar">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </td>
+                                @endif
+                            </tr>
+                            @endforeach
                             @endif
                         </tbody>
                         <tfoot style="background-color: #2a2a2a;">
@@ -222,44 +230,44 @@
 </section>
 
 <script>
-// Actualizar hora automáticamente
-function actualizarHora() {
-    const ahora = new Date();
-    const horas = String(ahora.getHours()).padStart(2, '0');
-    const minutos = String(ahora.getMinutes()).padStart(2, '0');
-    const horaActual = `${horas}:${minutos}`;
+    // Actualizar hora automáticamente
+    function actualizarHora() {
+        const ahora = new Date();
+        const horas = String(ahora.getHours()).padStart(2, '0');
+        const minutos = String(ahora.getMinutes()).padStart(2, '0');
+        const horaActual = `${horas}:${minutos}`;
 
-    const inputHora = document.getElementById('inputHora');
-    if (inputHora) {
-        inputHora.value = horaActual;
-    }
-}
-
-// Actualizar fecha y hora al cargar la página
-document.addEventListener('DOMContentLoaded', function() {
-    // Establecer hora inicial
-    actualizarHora();
-
-    // Actualizar la hora cuando el usuario interactúa con el formulario
-    const form = document.querySelector('form');
-    if (form) {
-        // Actualizar hora al hacer foco en cualquier campo del formulario
-        const inputs = form.querySelectorAll('input, select');
-        inputs.forEach(input => {
-            if (input.name !== 'hora') { // No actualizar cuando se edita manualmente la hora
-                input.addEventListener('focus', actualizarHora);
-            }
-        });
-
-        // Actualizar hora justo antes de enviar el formulario
-        form.addEventListener('submit', function() {
-            actualizarHora();
-        });
+        const inputHora = document.getElementById('inputHora');
+        if (inputHora) {
+            inputHora.value = horaActual;
+        }
     }
 
-    // Actualizar automáticamente cada 30 segundos
-    setInterval(actualizarHora, 30000);
-});
+    // Actualizar fecha y hora al cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+        // Establecer hora inicial
+        actualizarHora();
+
+        // Actualizar la hora cuando el usuario interactúa con el formulario
+        const form = document.querySelector('form');
+        if (form) {
+            // Actualizar hora al hacer foco en cualquier campo del formulario
+            const inputs = form.querySelectorAll('input, select');
+            inputs.forEach(input => {
+                if (input.name !== 'hora') { // No actualizar cuando se edita manualmente la hora
+                    input.addEventListener('focus', actualizarHora);
+                }
+            });
+
+            // Actualizar hora justo antes de enviar el formulario
+            form.addEventListener('submit', function() {
+                actualizarHora();
+            });
+        }
+
+        // Actualizar automáticamente cada 30 segundos
+        setInterval(actualizarHora, 30000);
+    });
 </script>
 
 @endsection

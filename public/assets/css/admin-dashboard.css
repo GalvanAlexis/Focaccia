@@ -1,0 +1,335 @@
+/* Estilos específicos para Dashboard Admin - Paleta Focaccia */
+
+/* Variables extendidas */
+:root {
+  --focaccia-primary: #F2C572;    /* dorado suave */
+  --focaccia-secondary: #BF6C3B;   /* naranja/marrón */
+  --focaccia-accent: #590202;      /* rojo oscuro profundo */
+  --focaccia-danger: #D92323;      /* rojo vivo */
+  --focaccia-light: #F2F2F2;      /* gris claro/blanco sucio */
+  --focaccia-dark: #333333;        /* texto oscuro suave */
+}
+
+/* Override para todas las páginas admin */
+body {
+  background-color: var(--focaccia-light) !important;
+  color: var(--focaccia-dark) !important;
+}
+
+/* Dashboard Cards */
+.card {
+  background-color: var(--focaccia-light) !important;
+  border: 1px solid var(--focaccia-secondary) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(191, 108, 59, 0.1) !important;
+  transition: all 0.3s ease !important;
+}
+
+.card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 8px 24px rgba(191, 108, 59, 0.2) !important;
+}
+
+.card-header {
+  background-color: var(--focaccia-primary) !important;
+  color: var(--focaccia-dark) !important;
+  border-bottom: 1px solid var(--focaccia-secondary) !important;
+  border-radius: 12px 12px 0 0 !important;
+  font-weight: 600 !important;
+}
+
+/* Table Styles */
+.table {
+  color: var(--focaccia-dark) !important;
+}
+
+.table th {
+  background-color: var(--focaccia-primary) !important;
+  color: var(--focaccia-dark) !important;
+  border-color: var(--focaccia-secondary) !important;
+}
+
+.table td {
+  border-color: var(--focaccia-secondary) !important;
+  background-color: var(--focaccia-light) !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(242, 197, 114, 0.05) !important;
+}
+
+/* Botones */
+.btn {
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+}
+
+.btn-primary {
+  background-color: var(--focaccia-primary) !important;
+  border-color: var(--focaccia-primary) !important;
+  color: var(--focaccia-dark) !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--focaccia-secondary) !important;
+  border-color: var(--focaccia-secondary) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(191, 108, 59, 0.3) !important;
+}
+
+.btn-success {
+  background-color: #28a745 !important;
+  border-color: #28a745 !important;
+}
+
+.btn-success:hover {
+  background-color: #218838 !important;
+  transform: translateY(-2px) !important;
+}
+
+.btn-danger {
+  background-color: var(--focaccia-danger) !important;
+  border-color: var(--focaccia-danger) !important;
+  color: var(--focaccia-light) !important;
+}
+
+.btn-danger:hover {
+  background-color: #b71c1c !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(217, 35, 35, 0.3) !important;
+}
+
+/* Formularios */
+.form-control {
+  background-color: var(--focaccia-light) !important;
+  border: 1px solid var(--focaccia-secondary) !important;
+  color: var(--focaccia-dark) !important;
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+}
+
+.form-control:focus {
+  border-color: var(--focaccia-primary) !important;
+  box-shadow: 0 0 0 0.2rem rgba(242, 197, 114, 0.25) !important;
+  background-color: var(--focaccia-light) !important;
+  color: var(--focaccia-dark) !important;
+}
+
+.form-select {
+  background-color: var(--focaccia-light) !important;
+  border: 1px solid var(--focaccia-secondary) !important;
+  color: var(--focaccia-dark) !important;
+}
+
+/* Badges */
+.badge {
+  background-color: var(--focaccia-primary) !important;
+  color: var(--focaccia-dark) !important;
+  border-radius: 6px !important;
+}
+
+.badge.bg-success {
+  background-color: #28a745 !important;
+}
+
+.badge.bg-danger {
+  background-color: var(--focaccia-danger) !important;
+  color: var(--focaccia-light) !important;
+}
+
+.badge.bg-warning {
+  background-color: var(--focaccia-primary) !important;
+  color: var(--focaccia-dark) !important;
+}
+
+/* Alerts */
+.alert {
+  border-radius: 12px !important;
+  border: none !important;
+}
+
+.alert-success {
+  background-color: rgba(40, 167, 69, 0.1) !important;
+  color: #155724 !important;
+  border-left: 4px solid #28a745 !important;
+}
+
+.alert-danger {
+  background-color: rgba(217, 35, 35, 0.1) !important;
+  color: var(--focaccia-accent) !important;
+  border-left: 4px solid var(--focaccia-danger) !important;
+}
+
+.alert-warning {
+  background-color: rgba(242, 197, 114, 0.1) !important;
+  color: var(--focaccia-dark) !important;
+  border-left: 4px solid var(--focaccia-primary) !important;
+}
+
+/* Page headers */
+.page-header {
+  background: linear-gradient(135deg, var(--focaccia-primary) 0%, var(--focaccia-secondary) 100%) !important;
+  color: var(--focaccia-dark) !important;
+  padding: 1.5rem !important;
+  border-radius: 12px !important;
+  margin-bottom: 2rem !important;
+  box-shadow: 0 4px 12px rgba(191, 108, 59, 0.2) !important;
+}
+
+/* Links */
+a {
+  color: var(--focaccia-primary) !important;
+  transition: all 0.3s ease !important;
+}
+
+a:hover {
+  color: var(--focaccia-secondary) !important;
+  text-decoration: underline !important;
+}
+
+/* Text colors */
+.text-primary {
+  color: var(--focaccia-dark) !important;
+}
+
+.text-secondary {
+  color: #666666 !important;
+}
+
+.text-success {
+  color: #28a745 !important;
+}
+
+.text-danger {
+  color: var(--focaccia-danger) !important;
+}
+
+.text-warning {
+  color: var(--focaccia-primary) !important;
+}
+
+/* Headers */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--focaccia-dark) !important;
+  font-weight: 600 !important;
+}
+
+/* Sidebar/Admin navigation */
+.nav-pills .nav-link {
+  color: var(--focaccia-dark) !important;
+  background-color: var(--focaccia-light) !important;
+  border: 1px solid var(--focaccia-secondary) !important;
+  border-radius: 8px !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.nav-pills .nav-link:hover {
+  background-color: rgba(242, 197, 114, 0.1) !important;
+  transform: translateX(4px) !important;
+}
+
+.nav-pills .nav-link.active {
+  background-color: var(--focaccia-primary) !important;
+  color: var(--focaccia-dark) !important;
+  border-color: var(--focaccia-primary) !important;
+}
+
+/* Pagination */
+.page-link {
+  color: var(--focaccia-dark) !important;
+  background-color: var(--focaccia-light) !important;
+  border: 1px solid var(--focaccia-secondary) !important;
+}
+
+.page-link:hover {
+  background-color: var(--focaccia-primary) !important;
+  border-color: var(--focaccia-primary) !important;
+  color: var(--focaccia-dark) !important;
+}
+
+.page-item.active .page-link {
+  background-color: var(--focaccia-primary) !important;
+  border-color: var(--focaccia-primary) !important;
+  color: var(--focaccia-dark) !important;
+}
+
+/* Progress bars */
+.progress-bar {
+  background-color: var(--focaccia-primary) !important;
+}
+
+.progress-bar.bg-success {
+  background-color: #28a745 !important;
+}
+
+.progress-bar.bg-danger {
+  background-color: var(--focaccia-danger) !important;
+}
+
+/* Lists */
+.list-group-item {
+  background-color: var(--focaccia-light) !important;
+  border: 1px solid var(--focaccia-secondary) !important;
+  color: var(--focaccia-dark) !important;
+}
+
+.list-group-item:hover {
+  background-color: rgba(242, 197, 114, 0.1) !important;
+}
+
+/* Modals */
+.modal-content {
+  background-color: var(--focaccia-light) !important;
+  border: 1px solid var(--focaccia-secondary) !important;
+  border-radius: 12px !important;
+}
+
+.modal-header {
+  background-color: var(--focaccia-primary) !important;
+  border-bottom: 1px solid var(--focaccia-secondary) !important;
+  color: var(--focaccia-dark) !important;
+  border-radius: 12px 12px 0 0 !important;
+}
+
+.modal-footer {
+  background-color: var(--focaccia-light) !important;
+  border-top: 1px solid var(--focaccia-secondary) !important;
+}
+
+/* Dropdowns */
+.dropdown-menu {
+  background-color: var(--focaccia-light) !important;
+  border: 1px solid var(--focaccia-secondary) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 24px rgba(191, 108, 59, 0.15) !important;
+}
+
+.dropdown-item {
+  color: var(--focaccia-dark) !important;
+}
+
+.dropdown-item:hover {
+  background-color: rgba(242, 197, 114, 0.1) !important;
+  color: var(--focaccia-dark) !important;
+}
+
+/* Headers específicos del dashboard */
+.dashboard-stat {
+  background: linear-gradient(135deg, var(--focaccia-primary) 0%, var(--focaccia-secondary) 100%) !important;
+  color: var(--focaccia-dark) !important;
+  border-radius: 12px !important;
+  padding: 1.5rem !important;
+  box-shadow: 0 4px 12px rgba(191, 108, 59, 0.2) !important;
+  transition: all 0.3s ease !important;
+}
+
+.dashboard-stat:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 8px 24px rgba(191, 108, 59, 0.3) !important;
+}
+
+/* Transiciones suaves */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease !important;
+}
