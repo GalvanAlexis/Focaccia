@@ -112,7 +112,7 @@ function updateCartDisplay() {
 // Ir al carrito
 async function goToCart() {
   const carritoUrl = document.getElementById('cartFloat').dataset.carritoUrl;
-  const agregarUrl = document.getElementById('cartFloat').dataset.agregarUrl;
+  const sincronizarUrl = document.getElementById('cartFloat').dataset.sincronizarUrl;
 
   // Mostrar loading
   const cartFloat = document.getElementById('cartFloat');
@@ -123,28 +123,21 @@ async function goToCart() {
     // Obtener CSRF token
     const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
     
-    // Agregar todos los productos al carrito del servidor
-    for (const platoId in cart) {
-      const item = cart[platoId];
+    // Sincronizar el carrito completo en una sola petición
+    const response = await fetch(sincronizarUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': csrfToken
+      },
+      body: JSON.stringify({
+        carrito: cart
+      })
+    });
 
-      const formData = new FormData();
-      formData.append('plato_id', platoId);
-      formData.append('cantidad', item.cantidad);
-      formData.append('notas', '');
-      
-      if (csrfToken) {
-        formData.append('_token', csrfToken);
-      }
-
-      const response = await fetch(agregarUrl, {
-        method: 'POST',
-        headers: csrfToken ? {
-          'X-CSRF-TOKEN': csrfToken
-        } : {},
-        body: formData
-      });
-
-      const data = await response.json();
+    const data = await response.json();
+    if (!data.success) {
+      throw new Error(data.message || 'Error al sincronizar');
     }
 
     // Redirigir al carrito

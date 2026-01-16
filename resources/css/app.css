@@ -1,11 +1,5 @@
-@import 'tailwindcss';
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import 'bootstrap-icons/font/bootstrap-icons.min.css';
-
-/* Fix Tailwind overlap with Bootstrap */
-.collapse {
-    visibility: visible !important;
-}
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';

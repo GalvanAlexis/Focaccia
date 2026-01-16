@@ -12,6 +12,7 @@
 
   <!-- Estilos externos -->
   <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+  @yield('styles')
 </head>
 
 <body data-cart-count-url="{{ url('carrito/getCount') }}">
@@ -112,37 +113,6 @@
     </div>
   </footer>
 
-
-  <script>
-    // Auto-cerrar el navbar cuando se hace clic en un enlace
-    document.addEventListener('DOMContentLoaded', function() {
-      const navbarToggler = document.querySelector('.navbar-toggler');
-      const navbarCollapse = document.getElementById('navbarNav');
-      const navLinks = document.querySelectorAll('#navbarNav .nav-link, #navbarNav button[type="submit"]');
-
-      navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-          // Verificar si el navbar está visible (en móvil)
-          const isExpanded = navbarToggler.getAttribute('aria-expanded') === 'true';
-
-          if (isExpanded) {
-            // Simular clic en el botón toggler para cerrar el menú
-            navbarToggler.click();
-          }
-        });
-      });
-
-      // También cerrar al hacer clic fuera del navbar
-      document.addEventListener('click', function(event) {
-        const isClickInsideNav = navbarCollapse.contains(event.target) || navbarToggler.contains(event.target);
-        const isExpanded = navbarToggler.getAttribute('aria-expanded') === 'true';
-
-        if (!isClickInsideNav && isExpanded) {
-          navbarToggler.click();
-        }
-      });
-    });
-  </script>
   <script src="{{ asset('assets/js/main.js') }}"></script>
 </body>
 

@@ -17,6 +17,7 @@ Route::post('carrito/agregar', [CarritoController::class, 'agregar'])->name('car
 Route::post('carrito/actualizar', [CarritoController::class, 'actualizar'])->name('carrito.actualizar');
 Route::post('carrito/eliminar', [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
 Route::post('carrito/vaciar', [CarritoController::class, 'vaciar'])->name('carrito.vaciar');
+Route::post('carrito/sincronizar', [CarritoController::class, 'sincronizar'])->name('carrito.sincronizar');
 Route::get('carrito/getCount', [CarritoController::class, 'getCount'])->name('carrito.getCount');
 
 // ---------------- CARRITO (finalizar pedido SIN requerir login) ----------------
@@ -65,10 +66,10 @@ Route::middleware(['auth', 'role:admin|vendedor'])->prefix('admin')->name('admin
 
 // ---------------- PEDIDOS DE USUARIO (autenticado) ----------------
 Route::middleware(['auth'])->group(function () {
-    Route::get('pedido', function() {
+    Route::get('pedido', function () {
         return view('pedido.index'); // Esta vista mostrar\u00e1 los pedidos del usuario
     })->name('pedido.index');
 });
 
 // ---------------- AUTH (Laravel UI o Breeze) ----------------
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

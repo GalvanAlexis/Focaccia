@@ -14,13 +14,13 @@ class CarritoController extends Controller
     public function index()
     {
         $carrito = session('carrito', []);
-        
+
         // Calcular total
         $total = 0;
         foreach ($carrito as $item) {
             $total += $item['precio'] * $item['cantidad'];
         }
-        
+
         return view('carrito.index', compact('carrito', 'total'));
     }
 
@@ -90,21 +90,68 @@ class CarritoController extends Controller
 
             session(['carrito' => $carrito]);
 
-            $cart_count = array_sum(array_column($carrito, 'cantidad'));
+            if ($request->ajax()) {
+                $cart_count = array_sum(array_column($carrito, 'cantidad'));
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Plato agregado al carrito',
+                    'cart_count' => $cart_count
+                ]);
+            }
+
+            return redirect()->back()->with('success', 'Plato agregado al carrito');
+        } catch (\Exception $e) {
+            Log::error('Error en CarritoController::agregar - ' . $e->getMessage());
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Error al agregar al carrito: ' . $e->getMessage()
+                ]);
+            }
+            return redirect()->back()->with('error', 'Error al agregar al carrito');
+        }
+    }
+    public function sincronizar(Request $request)
+    {
+        try {
+            $carritoNuevo = $request->input('carrito', []);
+            $actualizado = [];
+
+            // Validar que cada plato existe y tiene stock
+            foreach ($carritoNuevo as $plato_id => $item) {
+                $plato = Plato::find($plato_id);
+                if (!$plato || !$plato->disponible) continue;
+
+                $cantidad = (int) $item['cantidad'];
+                if ($cantidad <= 0) continue;
+
+                // Validar stock
+                if ($plato->stock_ilimitado == 0 && $cantidad > $plato->stock) {
+                    $cantidad = $plato->stock;
+                }
+
+                $actualizado[$plato_id] = [
+                    'nombre' => $plato->nombre,
+                    'precio' => $plato->precio,
+                    'cantidad' => $cantidad
+                ];
+            }
+
+            session(['carrito' => $actualizado]);
 
             return response()->json([
                 'success' => true,
-                'message' => 'Plato agregado al carrito',
-                'cart_count' => $cart_count
+                'message' => 'Carrito sincronizado'
             ]);
         } catch (\Exception $e) {
-            Log::error('Error en CarritoController::agregar - ' . $e->getMessage());
+            Log::error('Error en CarritoController::sincronizar - ' . $e->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => 'Error al agregar al carrito: ' . $e->getMessage()
+                'message' => 'Error al sincronizar carrito'
             ]);
         }
     }
+
 
     public function actualizar(Request $request)
     {
@@ -151,16 +198,23 @@ class CarritoController extends Controller
             $carrito[$plato_id]['cantidad'] = $cantidad;
             session(['carrito' => $carrito]);
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Cantidad actualizada'
-            ]);
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Cantidad actualizada'
+                ]);
+            }
+
+            return redirect()->back()->with('success', 'Cantidad actualizada');
         } catch (\Exception $e) {
             Log::error('Error en CarritoController::actualizar - ' . $e->getMessage());
-            return response()->json([
-                'success' => false,
-                'message' => 'Error al actualizar cantidad: ' . $e->getMessage()
-            ]);
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Error al actualizar cantidad: ' . $e->getMessage()
+                ]);
+            }
+            return redirect()->back()->with('error', 'Error al actualizar cantidad');
         }
     }
 
@@ -174,10 +228,13 @@ class CarritoController extends Controller
             if (isset($carrito[$plato_id])) {
                 unset($carrito[$plato_id]);
                 session(['carrito' => $carrito]);
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Plato eliminado del carrito'
-                ]);
+                if ($request->ajax()) {
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Plato eliminado del carrito'
+                    ]);
+                }
+                return redirect()->back()->with('success', 'Plato eliminado');
             }
 
             // Intentar búsqueda segura por tipos (string vs int)
@@ -185,25 +242,34 @@ class CarritoController extends Controller
                 if ((string)$id === (string)$plato_id) {
                     unset($carrito[$id]);
                     session(['carrito' => $carrito]);
-                    return response()->json([
-                        'success' => true,
-                        'message' => 'Plato eliminado del carrito'
-                    ]);
+                    if ($request->ajax()) {
+                        return response()->json([
+                            'success' => true,
+                            'message' => 'Plato eliminado del carrito'
+                        ]);
+                    }
+                    return redirect()->back()->with('success', 'Plato eliminado');
                 }
             }
 
             Log::warning("Intento de eliminar plato ID {$plato_id} fallido. IDs en carrito: " . implode(',', array_keys($carrito)));
 
-            return response()->json([
-                'success' => false,
-                'message' => 'Plato no encontrado en el carrito'
-            ]);
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Plato no encontrado en el carrito'
+                ]);
+            }
+            return redirect()->back()->with('warning', 'Plato no encontrado');
         } catch (\Exception $e) {
             Log::error('Error en CarritoController::eliminar - ' . $e->getMessage());
-            return response()->json([
-                'success' => false,
-                'message' => 'Error al eliminar producto: ' . $e->getMessage()
-            ]);
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Error al eliminar producto: ' . $e->getMessage()
+                ]);
+            }
+            return redirect()->back()->with('error', 'Error al eliminar producto');
         }
     }
 
