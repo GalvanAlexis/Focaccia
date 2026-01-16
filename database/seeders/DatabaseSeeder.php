@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolesAndPermissionsSeeder::class,
             MenuSeeder::class,
+            PedidosSeeder::class,
+            CajaChicaSeeder::class,
         ]);
     }
 }

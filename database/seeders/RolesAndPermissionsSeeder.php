@@ -26,7 +26,7 @@ class RolesAndPermissionsSeeder extends Seeder
         // Crear usuario administrador por defecto
         $admin = User::create([
             'name' => 'Administrador',
-            'email' => 'admin@labartola.com',
+            'email' => 'admin@focaccia.com',
             'password' => Hash::make('admin123'),
             'email_verified_at' => now(),
         ]);
@@ -35,7 +35,7 @@ class RolesAndPermissionsSeeder extends Seeder
         $admin->assignRole('admin');
 
         echo "Roles y usuario admin creados exitosamente.\n";
-        echo "Email: admin@labartola.com\n";
+        echo "Email: admin@focaccia.com\n";
         echo "Password: admin123\n";
     }
 }

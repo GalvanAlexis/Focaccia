@@ -16,8 +16,9 @@ class PedidosController extends Controller
 {
     public function index(Request $request)
     {
-        // Query param para búsqueda
+        // Query param para búsqueda y fecha
         $busqueda = $request->input('busqueda');
+        $fecha = $request->input('fecha');
 
         // Construir query base
         $query = DB::table('pedidos as p')
@@ -37,14 +38,17 @@ class PedidosController extends Controller
         // Lógica de filtrado
         if (!empty($busqueda)) {
             // Si hay búsqueda, buscar en toda la DB
-            $query->where(function($q) use ($busqueda) {
+            $query->where(function ($q) use ($busqueda) {
                 $q->where('p.id', 'like', "%{$busqueda}%")
-                  ->orWhere('p.notas', 'like', "%{$busqueda}%") // Busca en nombre cliente, direccion, etc
-                  ->orWhere('u.name', 'like', "%{$busqueda}%")
-                  ->orWhere('pl.nombre', 'like', "%{$busqueda}%");
+                    ->orWhere('p.notas', 'like', "%{$busqueda}%") // Busca en nombre cliente, direccion, etc
+                    ->orWhere('u.name', 'like', "%{$busqueda}%")
+                    ->orWhere('pl.nombre', 'like', "%{$busqueda}%");
             });
+        } elseif (!empty($fecha)) {
+            // Si hay fecha, filtrar por esa fecha
+            $query->whereDate('p.created_at', $fecha);
         } else {
-            // Si NO hay búsqueda, mostrar solo pedidos de HOY
+            // Si NO hay búsqueda ni fecha, mostrar solo pedidos de HOY
             $query->whereDate('p.created_at', now()->toDateString());
         }
 
@@ -55,7 +59,7 @@ class PedidosController extends Controller
             $pedido->info_pedido = $this->extraerInfoPedido($pedido->notas);
         }
 
-        return view('admin.pedidos.index', compact('pedidos'));
+        return view('admin.pedidos.index', compact('pedidos', 'fecha'));
     }
 
     public function ver($id)
@@ -165,10 +169,10 @@ class PedidosController extends Controller
             // Si estaba pendiente => no hubo entrada => no hay devolución de dinero, PERO el usuario quiere registrar "porque se cancelo".
             // Para mantener la consistencia contable: solo "Salida" si hubo "Entrada" (estado completado).
             // Si nunca se pagó (pendiente), no debería haber movimiento en caja, solo registro de stock (hecho arriba) o log.
-            
+
             // Re-leendo requerimiento: "descuenta si se cancelo[aca tiene que poner porque se cancelo el pedido]"
             // Asumiré que se refiere a la devolución de dinero si ya estaba cobrado (completado).
-            
+
             if ($estadoAnterior === 'completado') {
                 $this->registrarEnCajaChica($pedido, 'salida', $motivo);
             }
@@ -351,23 +355,23 @@ class PedidosController extends Controller
         }
 
         if (!$pedidoExistente) {
-             // Fallback: búsqueda por key (legacy)
+            // Fallback: búsqueda por key (legacy)
             $keyParts = explode('_', $pedidoKey, 2); // Limitar a 2 partes para no romper la fecha
             $nombreCliente = $keyParts[0];
             $fechaPedido = isset($keyParts[1]) ? $keyParts[1] : null;
-    
+
             // Buscar un pedido existente de este cliente/grupo con la misma fecha
             $query = Pedido::where('notas', 'like', "%A nombre de: {$nombreCliente}%")
                 ->orderBy('id', 'DESC');
-    
+
             // Si tenemos la fecha, filtrar también por fecha para mayor precisión
             if ($fechaPedido) {
                 $fechaFormateada = date('Y-m-d H:i', strtotime($fechaPedido));
                 $query->whereRaw("DATE_FORMAT(created_at, '%Y-%m-%d %H:%i') = ?", [$fechaFormateada]);
             }
-    
+
             $pedidoExistente = $query->first();
-    
+
             if (!$pedidoExistente) {
                 // Si no encontramos con fecha exacta, buscar solo por nombre
                 $pedidoExistente = Pedido::where('notas', 'like', "%A nombre de: {$nombreCliente}%")

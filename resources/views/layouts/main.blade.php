@@ -19,7 +19,6 @@
   <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container">
       <a class="navbar-brand" href="{{ url('/') }}" id="logo-link" data-caja-chica-url="{{ url('admin/caja-chica') }}">
-        <img src="{{ asset('img/logo.png') }}" alt="Logo Focaccia" style="height: 70px; width: 70px; object-fit: cover; transform: scale(1.2);">
         Focaccia
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -31,7 +30,7 @@
           @if(auth()->check() && auth()->user()->hasRole('admin'))
           <li class="nav-item"><a class="nav-link" href="{{ url('admin/menu') }}">Gestión Menú</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ url('admin/pedidos') }}">Pedidos</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ url('admin/caja-chica') }}">💰 Caja Chica</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url('admin/caja-chica') }}">Caja Chica</a></li>
           <li class="nav-item">
             <form action="{{ route('logout') }}" method="POST" class="d-inline">
               @csrf
@@ -114,6 +113,36 @@
   </footer>
 
 
+  <script>
+    // Auto-cerrar el navbar cuando se hace clic en un enlace
+    document.addEventListener('DOMContentLoaded', function() {
+      const navbarToggler = document.querySelector('.navbar-toggler');
+      const navbarCollapse = document.getElementById('navbarNav');
+      const navLinks = document.querySelectorAll('#navbarNav .nav-link, #navbarNav button[type="submit"]');
+
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          // Verificar si el navbar está visible (en móvil)
+          const isExpanded = navbarToggler.getAttribute('aria-expanded') === 'true';
+
+          if (isExpanded) {
+            // Simular clic en el botón toggler para cerrar el menú
+            navbarToggler.click();
+          }
+        });
+      });
+
+      // También cerrar al hacer clic fuera del navbar
+      document.addEventListener('click', function(event) {
+        const isClickInsideNav = navbarCollapse.contains(event.target) || navbarToggler.contains(event.target);
+        const isExpanded = navbarToggler.getAttribute('aria-expanded') === 'true';
+
+        if (!isClickInsideNav && isExpanded) {
+          navbarToggler.click();
+        }
+      });
+    });
+  </script>
   <script src="{{ asset('assets/js/main.js') }}"></script>
 </body>
 
