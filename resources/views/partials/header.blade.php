@@ -1,4 +1,4 @@
-<header class="bg-gradient-to-b from-gray-100 to-gray-200 p-4 shadow-md relative">
+<header class="bg-[#efefef] p-4 shadow-md relative">
 
     <!-- Carrito Header (absoluto) -->
     <a href="{{ route('carrito.index') }}"
