@@ -116,14 +116,33 @@ body {
 }
 
 .hours-text {
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+
+.hours-container {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
   gap: 4px;
 }
 
 .hours-part {
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hours-part i {
+  color: #D92534;
+  font-size: 1.3rem;
+  min-width: 25px;
+  text-align: center;
 }
 
 .info-item i {
@@ -141,6 +160,21 @@ body {
 }
 
 .info-item-link:hover {
+  background-color: rgba(212, 182, 138, 0.2);
+  border-radius: 8px;
+}
+
+.info-text-link {
+  text-decoration: none !important;
+  color: #590902 !important;
+  display: inline-block;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.info-text-link:hover {
+  text-decoration: none !important;
+  color: #590902 !important;
   background-color: rgba(212, 182, 138, 0.2);
   border-radius: 8px;
 }
