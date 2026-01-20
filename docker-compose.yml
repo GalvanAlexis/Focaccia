@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: labartola_mysql_laravel
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password_2024
+      MYSQL_DATABASE: labartola
+      MYSQL_USER: labartola_user
+      MYSQL_PASSWORD: labartola_pass
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - labartola_network
+
+networks:
+  labartola_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local

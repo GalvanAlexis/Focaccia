@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(findstr:*)",
+      "Bash(sc query:*)",
+      "Bash(powershell \"Get-Service | Where-Object {$_Name -like ''*mysql*'' -or $_Name -like ''*mariadb*''}\")",
+      "Bash(net start:*)",
+      "Bash(docker-compose up:*)",
+      "Bash(php artisan:*)",
+      "Bash(curl:*)"
+    ]
+  }
+}
