@@ -41,16 +41,20 @@
 
   <!-- Información del Local -->
   <div class="info-section">
-    <a href="https://www.google.com/maps/search/?api=1&query=Bolivia+55,+Chascomus,+Buenos+Aires" target="_blank" class="info-item info-item-link">
-      <i class="bi bi-geo-alt-fill"></i>
-      <span>Bolivia 55, Chascomús</span>
-    </a>
     <div class="info-item">
-      <i class="bi bi-clock-fill"></i>
-      <span class="hours-text">
-        <span class="hours-part">Mar a Jue: 20-23 |</span>
+      <i class="bi bi-geo-alt-fill"></i>
+      <a href="https://www.google.com/maps/search/?api=1&query=Bolivia+55,+Chascomus,+Buenos+Aires" target="_blank" class="info-text-link">
+        Bolivia 55, Chascomús
+      </a>
+    </div>
+    <div class="info-item">
+      <div class="hours-container">
+        <span class="hours-part">
+          <i class="bi bi-clock-fill"></i>
+          Mar a Jue: 20-23 |
+        </span>
         <span class="hours-part">Vie a Dom: 20-23:30 hs</span>
-      </span>
+      </div>
     </div>
     <div class="info-item">
       <i class="bi bi-bicycle"></i>
